@@ -1,4 +1,5 @@
 using System.Numerics;
+using Practical.ProgramVisitors;
 
 namespace Practical.Commands;
 
@@ -9,6 +10,11 @@ public class Move : ICommand
     public Move(int distance)
     {
         Distance = distance;
+    }
+
+    public void Accept(ProgramVisitor visitor)
+    {
+        throw new NotImplementedException();
     }
 
     public void Execute(Player p)

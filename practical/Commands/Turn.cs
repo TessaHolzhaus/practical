@@ -1,3 +1,5 @@
+using Practical.ProgramVisitors;
+
 namespace Practical.Commands;
 
 public enum RotationDirection
@@ -13,6 +15,12 @@ public class Turn : ICommand
     {
         Rotation = rotation;
     }
+
+    public void Accept(ProgramVisitor visitor)
+    {
+        throw new NotImplementedException();
+    }
+
     public void Execute(Player p)
     {
         if (p.direction is Direction.North && Rotation is RotationDirection.left) p.direction = Direction.West;

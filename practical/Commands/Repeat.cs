@@ -1,9 +1,11 @@
+using Practical.ProgramVisitors;
+
 namespace Practical.Commands;
 
 public class Repeat : ICommand
 {
-    private List<ICommand> _commands;
-    public IReadOnlyCollection<ICommand> Commands => _commands.AsReadOnly();
+    public List<ICommand> Commands;
+    // public IReadOnlyCollection<ICommand> Commands => _commands.AsReadOnly();
 
     private int Times { get; set; }
 
@@ -11,6 +13,11 @@ public class Repeat : ICommand
     {
         Commands.AddRange(commands);
         Times = times;
+    }
+
+    public void Accept(ProgramVisitor visitor)
+    {
+        throw new NotImplementedException();
     }
 
     public void Execute(Player p)
@@ -25,6 +32,4 @@ public class Repeat : ICommand
             }
         }
     }
-    private List<ICommand> _commands;
-    public IReadOnlyCollection<ICommand> Commands => _commands.AsReadOnly();
 }

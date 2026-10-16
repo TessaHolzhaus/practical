@@ -17,7 +17,7 @@ public class Repeat : ICommand
 
     public void Accept(ProgramVisitor visitor)
     {
-        throw new NotImplementedException();
+        visitor.Visit(this);
     }
 
     public void Execute(Player p)

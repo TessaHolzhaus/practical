@@ -49,6 +49,24 @@ public class CommandCountMetricTests
         
         AssertCommandIncrementsCount(commands, command => _metric.VisitRepeat(command));
     }
+        
+    [Theory]
+    [InlineData(1)]
+    [InlineData(2)]
+    [InlineData(3)]
+    public void VisitRepeat_WithBody_IncrementsCommandCount(int commandCount)
+    {
+        var commands = Enumerable.Range(0, commandCount)
+            .Select(_ => new ProgramVisitorTests.CommandAcceptMock())
+            .ToList();
+
+        var repeatCommand = new Repeat(3, commands.Cast<ICommand>().ToList());
+        
+        _metric.VisitRepeat(repeatCommand);
+        
+        Assert.All(commands, command => Assert.True(command.AcceptedOnce()));
+    }
+    
     
     private void AssertCommandIncrementsCount<TCommand>(IReadOnlyCollection<TCommand> commands, Action<TCommand> visitAction)
     {

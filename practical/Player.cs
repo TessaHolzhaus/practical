@@ -8,12 +8,12 @@ public enum Direction{
 }
 public class Player
 {
-    public Direction direction;
+    public Direction Direction;
     public Vector2 Position { get; set; }
 
     public Player()
     {
-        direction = Direction.East;
+        Direction = Direction.East;
         Position = new Vector2(0, 0);
     }
 }

@@ -1,28 +1,27 @@
 using Practical.ProgramVisitors;
+using Practical.Writing;
 
 namespace Practical.Commands;
 
 public class Repeat : ICommand
 {
-    public List<ICommand> Commands;
-    // public IReadOnlyCollection<ICommand> Commands => _commands.AsReadOnly();
+    private List<ICommand> _commands;
+    public IReadOnlyCollection<ICommand> Commands => _commands.AsReadOnly();
+    public int Times { get; set; }
 
-    private int Times { get; set; }
 
-    public Repeat(List<ICommand> commands,int times)
+    public Repeat(int times, List<ICommand> commands)
     {
-        Commands.AddRange(commands);
+        _commands = commands;
         Times = times;
     }
 
     public void Accept(ProgramVisitor visitor)
-    {
-        visitor.Visit(this);
-    }
+        => visitor.VisitRepeat(this);
 
     public void Execute(Player p)
     {
-        if (Commands.Count == 0) return;
+        if (!_commands.Any()) return;
         Console.Write($" Repeat {Times} times ");
         for (int i = 1; i < Times; i++)
         {
@@ -31,5 +30,14 @@ public class Repeat : ICommand
                 command.Execute(p);
             }
         }
+    }
+    
+    public void WriteHeaderTo(TextWriter writer)
+    {
+        writer.Write("Repeat");
+        writer.WriteSpace();
+        writer.Write(Times);
+        writer.WriteSpace();
+        writer.WriteLine("times");
     }
 }

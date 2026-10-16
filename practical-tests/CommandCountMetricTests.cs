@@ -19,7 +19,7 @@ public class CommandCountMetricTests
     [InlineData(3)]
     public void VisitMove_IncrementsCommandCount(int visits)
     {
-        var commands = Enumerable.Range(0, visits).Select(_ => new Move()).ToList();
+        var commands = Enumerable.Range(0, visits).Select(_ => new Move(1)).ToList();
         AssertCommandIncrementsCount(commands, command => _metric.VisitMove(command));
     }
     
@@ -29,7 +29,10 @@ public class CommandCountMetricTests
     [InlineData(3)]
     public void VisitTurn_IncrementsCommandCount(int visits)
     {
-        var commands = Enumerable.Range(0, visits).Select(_ => new Turn()).ToList();
+        var commands = Enumerable.Range(0, visits)
+            .Select(i => new Turn(RotationDirection.Left))
+            .ToList();
+        
         AssertCommandIncrementsCount(commands, command => _metric.VisitTurn(command));
     }
     
@@ -38,9 +41,12 @@ public class CommandCountMetricTests
     [InlineData(1)]
     [InlineData(2)]
     [InlineData(3)]
-    public void VisitRepeat_IncrementsCommandCount(int visits) // TODO: repeat constructor does not exist so the child increments throw (and are also not tested by this) 
+    public void VisitRepeat_WithEmptyBody_IncrementsCommandCount(int visits)
     {
-        var commands = Enumerable.Range(0, visits).Select(_ => new Repeat()).ToList();
+        var commands = Enumerable.Range(0, visits)
+            .Select(_ => new Repeat(1, []))
+            .ToList();
+        
         AssertCommandIncrementsCount(commands, command => _metric.VisitRepeat(command));
     }
     

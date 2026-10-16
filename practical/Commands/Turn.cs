@@ -1,11 +1,13 @@
+using System.Diagnostics;
 using Practical.ProgramVisitors;
+using Practical.Writing;
 
 namespace Practical.Commands;
 
 public enum RotationDirection
 {
-    left,
-    right
+    Left,
+    Right
 }
 
 public class Turn : ICommand
@@ -17,26 +19,28 @@ public class Turn : ICommand
     }
 
     public void Accept(ProgramVisitor visitor)
-    {
-        visitor.Visit(this);
-    }
+        => visitor.VisitTurn(this);
 
     public void Execute(Player p)
     {
-        if (p.direction is Direction.North && Rotation is RotationDirection.left) p.direction = Direction.West;
-        if (p.direction is Direction.West && Rotation is RotationDirection.right) p.direction = Direction.North;
-
-        var result = p.direction switch
+        p.Direction = p.Direction switch
         {
-            Direction.North => Direction.East,
-            Direction.East when Rotation is RotationDirection.left => Direction.North,
-            Direction.East => Direction.South,
-            Direction.South when Rotation is RotationDirection.left => Direction.East,
-            Direction.South => Direction.West,
-            Direction.West => Direction.South,
-            _ => throw new NotImplementedException()
+            Direction.North when Rotation is RotationDirection.Right => Direction.East,
+            Direction.North when Rotation is RotationDirection.Left => Direction.West,
+            Direction.East when Rotation is RotationDirection.Right => Direction.South,
+            Direction.East when Rotation is RotationDirection.Left => Direction.North,
+            Direction.South when Rotation is RotationDirection.Right => Direction.West,
+            Direction.South when Rotation is RotationDirection.Left => Direction.East,
+            Direction.West when Rotation is RotationDirection.Right => Direction.North,
+            Direction.West when Rotation is RotationDirection.Left => Direction.South,
+            _ => throw new UnreachableException()
         };
-        p.direction = result;
-        Console.Write($" Turn {Rotation} ");
+    }
+    
+    public void WriteHeaderTo(TextWriter writer)
+    {
+        writer.Write("Turn");
+        writer.WriteSpace();
+        writer.WriteLine(Rotation);
     }
 }

@@ -2,7 +2,9 @@ namespace Practical.Commands;
 
 public class Repeat : ICommand
 {
-    private List<ICommand> Commands;
+    private List<ICommand> _commands;
+    public IReadOnlyCollection<ICommand> Commands => _commands.AsReadOnly();
+
     private int Times { get; set; }
 
     public Repeat(List<ICommand> commands,int times)
@@ -23,4 +25,6 @@ public class Repeat : ICommand
             }
         }
     }
+    private List<ICommand> _commands;
+    public IReadOnlyCollection<ICommand> Commands => _commands.AsReadOnly();
 }

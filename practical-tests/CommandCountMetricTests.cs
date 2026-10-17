@@ -1,4 +1,5 @@
-﻿using Practical.Commands;
+﻿using NSubstitute;
+using Practical.Commands;
 using Practical.ProgramVisitors;
 
 namespace PracticalTests;
@@ -54,17 +55,17 @@ public class CommandCountMetricTests
     [InlineData(1)]
     [InlineData(2)]
     [InlineData(3)]
-    public void VisitRepeat_WithBody_IncrementsCommandCount(int commandCount)
+    public void VisitRepeat_CallsAcceptOnEachBodyCommand(int commandCount)
     {
         var commands = Enumerable.Range(0, commandCount)
-            .Select(_ => new ProgramVisitorTests.CommandAcceptMock())
+            .Select(_ => Substitute.For<ICommand>())
             .ToList();
 
         var repeatCommand = new Repeat(3, commands.Cast<ICommand>().ToList());
         
         _metric.VisitRepeat(repeatCommand);
         
-        Assert.All(commands, command => Assert.True(command.AcceptedOnce()));
+        Assert.All(commands, command => command.Received(1).Accept(Arg.Any<ProgramVisitor>()));
     }
     
     

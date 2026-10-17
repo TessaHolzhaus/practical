@@ -1,18 +1,12 @@
 using Practical;
 using Practical.Commands;
 using Practical.ProgramVisitors;
+using NSubstitute;
 
 namespace PracticalTests;
 
 public class ProgramVisitorTests
 {
-    private class ProgramVisitorMock : ProgramVisitor
-    {
-        public override void VisitMove(Move move) => throw new InvalidOperationException();
-        public override void VisitTurn(Turn move) => throw new InvalidOperationException();
-        public override void VisitRepeat(Repeat repeat) => throw new InvalidOperationException();
-    }
-
     internal class CommandAcceptMock : ICommand
     {
         public int TimesAccepted { get; private set; }
@@ -22,13 +16,6 @@ public class ProgramVisitorTests
         public void Execute(Player p) => throw new InvalidOperationException();
     }
     
-    private ProgramVisitor _visitor;
-    
-    public ProgramVisitorTests()
-    {
-        _visitor = new ProgramVisitorMock();
-    }
-    
     [Theory]
     [InlineData(1)]
     [InlineData(2)]
@@ -36,11 +23,14 @@ public class ProgramVisitorTests
     public void Visit_CallsAcceptOnCommands(int commandCount)
     {
         var commands = Enumerable.Range(0, commandCount)
-            .Select(_ => new CommandAcceptMock())
+            .Select(_ => Substitute.For<ICommand>())
             .ToList();
-
-        _visitor.Visit(commands);
         
-        Assert.All(commands, command => Assert.True(command.AcceptedOnce()));
+        var visitor = Substitute.For<ProgramVisitor>();
+
+        visitor.Visit(commands);
+        
+        Assert.All(commands, command => command.Received(1).Accept(Arg.Any<ProgramVisitor>()));
+        
     }
 }

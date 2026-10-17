@@ -21,7 +21,7 @@ public class RepeatCountMetricTests
     {
         var commands = Enumerable.Range(0, visits).Select(_ => new Move(5)).ToList();
 
-        AsserRepeatCountUnchanged(commands, command => _metric.VisitMove(command)); 
+        AssertRepeatCountUnchanged(commands, command => _metric.VisitMove(command)); 
     }
     
     [Theory]
@@ -32,7 +32,7 @@ public class RepeatCountMetricTests
     {
         var commands = Enumerable.Range(0, visits).Select(_ => new Turn(RotationDirection.Left)).ToList();
 
-        AsserRepeatCountUnchanged(commands, command => _metric.VisitTurn(command)); 
+        AssertRepeatCountUnchanged(commands, command => _metric.VisitTurn(command)); 
     }
 
     [Theory]
@@ -69,7 +69,7 @@ public class RepeatCountMetricTests
     }
     
 
-    private void AsserRepeatCountUnchanged<TCommand>(IReadOnlyCollection<TCommand> commands, Action<TCommand> visitAction)
+    private void AssertRepeatCountUnchanged<TCommand>(IReadOnlyCollection<TCommand> commands, Action<TCommand> visitAction)
     {
         foreach (var command in commands)
         {

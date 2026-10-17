@@ -1,18 +1,19 @@
-using NSubstitute;
 using Practical.Commands;
 using Practical.ProgramVisitors;
 
 namespace PracticalTests;
 
-public class RepeatCountMetricTests
+public class RepeatCountMetricTests : ProgramVisitorRecursiveSubclassTests
 {
-    private RepeatCountMetric _metric;
+    private readonly RepeatCountMetric _metric;
     
     public RepeatCountMetricTests()
     {
         _metric = new RepeatCountMetric();
     }
 
+    protected override ProgramVisitor Visitor => _metric;
+    
     [Theory]
     [InlineData(1)]
     [InlineData(2)]
@@ -50,24 +51,6 @@ public class RepeatCountMetricTests
         
         Assert.Equal(commands.Count, _metric.RepeatCount);
     }
-    
-    [Theory]
-    [InlineData(1)]
-    [InlineData(2)]
-    [InlineData(3)]
-    public void VisitRepeat_CallsAcceptOnEachBodyCommand(int commandCount)
-    {
-        var commands = Enumerable.Range(0, commandCount)
-            .Select(_ => Substitute.For<ICommand>())
-            .ToList();
-
-        var repeatCommand = new Repeat(3, commands);
-        
-        _metric.VisitRepeat(repeatCommand);
-        
-        Assert.All(commands, command => command.Received(1).Accept(Arg.Any<ProgramVisitor>()));
-    }
-    
 
     private void AssertRepeatCountUnchanged<TCommand>(IReadOnlyCollection<TCommand> commands, Action<TCommand> visitAction)
     {

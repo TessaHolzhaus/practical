@@ -4,15 +4,16 @@ using Practical.ProgramVisitors;
 
 namespace PracticalTests;
 
-public class CommandCountMetricTests
+public class CommandCountMetricTests : ProgramVisitorRecursiveSubclassTests
 {
-    private CommandCountMetric _metric;
+    private readonly CommandCountMetric _metric;
 
     public CommandCountMetricTests()
     {
         _metric = new CommandCountMetric();
     }
     
+    protected override ProgramVisitor Visitor => _metric;
     
     [Theory]
     [InlineData(1)]

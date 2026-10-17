@@ -4,14 +4,16 @@ using System.Reflection;
 
 namespace PracticalTests;
 
-public class NestedCountMetricTests
+public class NestedCountMetricTests : ProgramVisitorRecursiveSubclassTests
 {
-    private NestedCountMetric _metric;
+    private readonly NestedCountMetric _metric;
 
     public NestedCountMetricTests()
     {
         _metric = new NestedCountMetric();
     }
+    
+    protected override ProgramVisitor Visitor => _metric;
     
     [Theory]
     [InlineData(1)]

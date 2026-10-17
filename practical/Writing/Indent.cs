@@ -1,6 +1,9 @@
 namespace Practical.Writing;
 
-public record Indent(char Char, int RepetitionsPerIndent = 1);
+public record Indent(char Char, int RepetitionsPerIndent = 1)
+{
+    public override string ToString() => new(Char, RepetitionsPerIndent);
+}
 
 public static class IndentExtensions
 {

@@ -20,7 +20,7 @@ public class CommandCountMetricTests
     [InlineData(3)]
     public void VisitMove_IncrementsCommandCount(int visits)
     {
-        var commands = Enumerable.Range(0, visits).Select(_ => new Move(1)).ToList();
+        var commands = Enumerable.Range(0, visits).Select(_ => new Move(5)).ToList();
         AssertCommandIncrementsCount(commands, command => _metric.VisitMove(command));
     }
     
@@ -45,7 +45,7 @@ public class CommandCountMetricTests
     public void VisitRepeat_WithEmptyBody_IncrementsCommandCount(int visits)
     {
         var commands = Enumerable.Range(0, visits)
-            .Select(_ => new Repeat(1, []))
+            .Select(_ => new Repeat(5, []))
             .ToList();
         
         AssertCommandIncrementsCount(commands, command => _metric.VisitRepeat(command));
@@ -61,7 +61,7 @@ public class CommandCountMetricTests
             .Select(_ => Substitute.For<ICommand>())
             .ToList();
 
-        var repeatCommand = new Repeat(3, commands.Cast<ICommand>().ToList());
+        var repeatCommand = new Repeat(3, commands);
         
         _metric.VisitRepeat(repeatCommand);
         

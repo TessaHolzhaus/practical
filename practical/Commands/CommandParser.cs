@@ -1,6 +1,4 @@
-namespace Practical.ProgramVisitors;
-using Practical.Commands;
-using System.Diagnostics;
+namespace Practical.Commands;
 
 public class CommandParser
 {

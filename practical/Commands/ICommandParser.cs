@@ -1,5 +1,4 @@
-namespace Practical.ProgramVisitors;
-using Practical.Commands;
+namespace Practical.Commands;
 
 public interface ICommandParser<TCommand> : ICommand
 {

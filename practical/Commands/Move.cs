@@ -25,9 +25,9 @@ public class Move : ICommand
            case Direction.East:
                p.Position += new Vector2(Distance, 0); break;
            case Direction.South:
-               p.Position -= new Vector2(0, -Distance); break;
+               p.Position -= new Vector2(0, Distance); break;
            case Direction.West:
-               p.Position -= new Vector2(-Distance, 0); break;
+               p.Position -= new Vector2(Distance, 0); break;
         }
     }
     

@@ -44,7 +44,7 @@ public class CommandCountMetricTests
     public void VisitRepeat_WithEmptyBody_IncrementsCommandCount(int visits)
     {
         var commands = Enumerable.Range(0, visits)
-            .Select(_ => new Repeat(1, []))
+            .Select(_ => new Repeat(1))
             .ToList();
         
         AssertCommandIncrementsCount(commands, command => _metric.VisitRepeat(command));

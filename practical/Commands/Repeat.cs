@@ -37,7 +37,6 @@ public class Repeat : ICommandParser<Repeat>
     public void Execute(Player p)
     {
         if (!_commands.Any()) return;
-        Console.Write($" Repeat {Times} times ");
         for (int i = 0; i < Times; i++)
         {
             foreach (ICommand command in Commands)

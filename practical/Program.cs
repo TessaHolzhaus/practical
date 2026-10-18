@@ -1,4 +1,5 @@
-﻿using Practical.Commands;
+﻿using Practical;
+using Practical.Commands;
 using Practical.ProgramVisitors;
 using Practical.Writing;
 
@@ -45,3 +46,12 @@ var programPrinter = new CommandStreamer(Console.Out) {
     Indent = new Indent(' ', 4)
 };
 programPrinter.Visit(program);
+
+
+//Testing the code
+Player p = new Player();
+foreach (ICommand command in program)
+{
+    command.Execute(p);
+}
+Console.WriteLine($"End state ({p.Position.X}, {p.Position.Y})  facing {p.Direction}");

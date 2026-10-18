@@ -20,7 +20,6 @@ public class Turn : ICommandParser<Turn>
 
     public static Turn Parse(string[] arguments) //TODO: Implement error checking
     {
-        string turn = arguments[0];
         if (!Enum.TryParse(arguments[0], out RotationDirection rotation))
         {
             throw new Exception("Turn not valid");

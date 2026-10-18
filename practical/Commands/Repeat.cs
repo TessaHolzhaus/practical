@@ -23,7 +23,7 @@ public class Repeat : ICommand
     {
         if (!_commands.Any()) return;
         Console.Write($" Repeat {Times} times ");
-        for (int i = 1; i < Times; i++)
+        for (int i = 0; i < Times; i++)
         {
             foreach (ICommand command in Commands)
             {

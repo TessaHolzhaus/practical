@@ -37,6 +37,6 @@ public class Repeat : ICommand
         writer.WriteSpace();
         writer.Write(Times);
         writer.WriteSpace();
-        writer.Write("times");
+        writer.WriteLine("times");
     }
 }

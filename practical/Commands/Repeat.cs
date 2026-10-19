@@ -22,7 +22,6 @@ public class Repeat : ICommand
     public void Execute(Player p)
     {
         if (!_commands.Any()) return;
-        Console.Write($" Repeat {Times} times ");
         for (int i = 1; i < Times; i++)
         {
             foreach (ICommand command in Commands)
@@ -38,6 +37,6 @@ public class Repeat : ICommand
         writer.WriteSpace();
         writer.Write(Times);
         writer.WriteSpace();
-        writer.WriteLine("times");
+        writer.Write("times");
     }
 }

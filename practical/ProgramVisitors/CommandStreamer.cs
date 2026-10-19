@@ -18,18 +18,21 @@ public class CommandStreamer : ProgramVisitor
     {
         Writer.WriteIndent(Indent, _indentationLevel);
         move.WriteHeaderTo(Writer);
+        Writer.WriteLine();
     }
 
     public override void VisitTurn(Turn turn)
     {
         Writer.WriteIndent(Indent, _indentationLevel);
         turn.WriteHeaderTo(Writer);
+        Writer.WriteLine();
     }
 
     public override void VisitRepeat(Repeat repeat)
     {
         Writer.WriteIndent(Indent, _indentationLevel);
         repeat.WriteHeaderTo(Writer);
+        Writer.WriteLine();
         _indentationLevel++;
         Visit(repeat.Commands);
         _indentationLevel--;

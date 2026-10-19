@@ -11,6 +11,12 @@ public class Player
     public Direction Direction;
     public Vector2 Position { get; set; }
 
+    
+    private List<string> ActionLog = [];
+    public string LoggedActions => string.Join(", ", ActionLog) + ".";
+    public void LogAction(string action)
+        => ActionLog.Add(action);
+    
     public Player()
     {
         Direction = Direction.East;

@@ -41,7 +41,7 @@ public class CommandStreamerTests : ProgramVisitorRecursiveSubclassTests
         
         _streamer.VisitTurn(command);
         
-        Assert.Equal($"Turn {rotation}{Environment.NewLine}", Output); // Do we want the rotation segment to be the same as RotationDirection.ToString()? Maybe we want lower case?
+        Assert.Equal($"Turn {rotation.ToString().ToLowerInvariant()}{Environment.NewLine}", Output); // Do we want the rotation segment to be the same as RotationDirection.ToString()? Maybe we want lower case?
     }
     
     [Theory]

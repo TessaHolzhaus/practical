@@ -7,6 +7,7 @@ namespace Practical.Commands;
 public class Move : ICommand
 {
     public int Distance { get; set; }
+    public ILogger? Logger { get; set; }
 
     public Move(int distance)
     {
@@ -18,6 +19,7 @@ public class Move : ICommand
 
     public void Execute(Player p)
     {
+        Logger?.LogExecution(WriteHeaderTo);
         switch(p.Direction)
         {
            case Direction.North:
@@ -25,9 +27,9 @@ public class Move : ICommand
            case Direction.East:
                p.Position += new Vector2(Distance, 0); break;
            case Direction.South:
-               p.Position -= new Vector2(0, -Distance); break;
+               p.Position -= new Vector2(0, Distance); break;
            case Direction.West:
-               p.Position -= new Vector2(-Distance, 0); break;
+               p.Position -= new Vector2(Distance, 0); break;
         }
     }
     
@@ -35,6 +37,6 @@ public class Move : ICommand
     {
         writer.Write("Move");
         writer.WriteSpace();
-        writer.WriteLine(Distance);
+        writer.Write(Distance);
     }
 }

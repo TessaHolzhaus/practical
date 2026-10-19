@@ -13,6 +13,9 @@ public enum RotationDirection
 public class Turn : ICommand
 {
     public RotationDirection Rotation { get; set; }
+    public ILogger? Logger { get; set; }
+    
+    
     public Turn(RotationDirection rotation)
     {
         Rotation = rotation;
@@ -23,6 +26,7 @@ public class Turn : ICommand
 
     public void Execute(Player p)
     {
+        Logger?.LogExecution(WriteHeaderTo);
         p.Direction = p.Direction switch
         {
             Direction.North when Rotation is RotationDirection.Right => Direction.East,
@@ -41,6 +45,6 @@ public class Turn : ICommand
     {
         writer.Write("Turn");
         writer.WriteSpace();
-        writer.WriteLine(Rotation);
+        writer.Write(Rotation.ToString().ToLowerInvariant());
     }
 }

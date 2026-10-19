@@ -22,7 +22,7 @@ public class Repeat : ICommand
     public void Execute(Player p)
     {
         if (!_commands.Any()) return;
-        for (int i = 1; i < Times; i++)
+        for (int i = 0; i < Times; i++)
         {
             foreach (ICommand command in Commands)
             {

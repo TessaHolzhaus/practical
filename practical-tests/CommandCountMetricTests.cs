@@ -1,5 +1,4 @@
-﻿using NSubstitute;
-using Practical.Commands;
+﻿using Practical.Commands;
 using Practical.ProgramVisitors;
 
 namespace PracticalTests;
@@ -68,7 +67,6 @@ public class CommandCountMetricTests : ProgramVisitorRecursiveSubclassTests
         
         Assert.All(commands, command => command.Received(1).Accept(Arg.Any<ProgramVisitor>()));
     }
-    
     
     private void AssertCommandIncrementsCount<TCommand>(IReadOnlyCollection<TCommand> commands, Action<TCommand> visitAction)
     {

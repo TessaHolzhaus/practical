@@ -3,17 +3,32 @@ using Practical.Writing;
 
 namespace Practical.Commands;
 
-public class Repeat : ICommand
+public class Repeat : ICommandParser<Repeat>
 {
     private List<ICommand> _commands;
     public IReadOnlyCollection<ICommand> Commands => _commands.AsReadOnly();
     public int Times { get; set; }
 
 
-    public Repeat(int times, List<ICommand> commands)
+    public Repeat(int times)
     {
-        _commands = commands;
         Times = times;
+        _commands = new List<ICommand>();
+    }
+
+    public static Repeat Parse(string[] arguments) //TODO: Implement error checking
+    {
+        if (!arguments.Any() || !int.TryParse(arguments[0], out int times) || times < 0)
+        {
+            throw new Exception("Repeat not valid");
+        }
+        
+        return new Repeat(times);
+    }
+
+    public void AddCommand(ICommand command)
+    {
+        _commands.Add(command);
     }
 
     public void Accept(ProgramVisitor visitor)

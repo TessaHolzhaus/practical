@@ -10,7 +10,7 @@ public enum RotationDirection
     Right
 }
 
-public class Turn : ICommand
+public class Turn : ICommandParser<Turn>
 {
     public RotationDirection Rotation { get; set; }
     public ILogger? Logger { get; set; }
@@ -19,6 +19,15 @@ public class Turn : ICommand
     public Turn(RotationDirection rotation)
     {
         Rotation = rotation;
+    }
+
+    public static Turn Parse(string[] arguments) //TODO: Implement error checking
+    {
+        if (!Enum.TryParse(arguments[0], out RotationDirection rotation))
+        {
+            throw new Exception("Turn not valid");
+        }
+        return new Turn(rotation);
     }
 
     public void Accept(ProgramVisitor visitor)

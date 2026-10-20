@@ -4,7 +4,7 @@ using Practical.Writing;
 
 namespace Practical.Commands;
 
-public class Move : ICommand
+public class Move : ICommand, ICommandParser<Move>
 {
     public int Distance { get; set; }
     public ILogger? Logger { get; set; }
@@ -12,6 +12,15 @@ public class Move : ICommand
     public Move(int distance)
     {
         Distance = distance;
+    }
+
+    public static Move Parse(string[] arguments) //TODO: Implement error checking
+    {
+        if (!int.TryParse(arguments[0], out int distance))
+        {
+            throw new Exception("Move not valid");
+        }
+        return new Move(distance);
     }
 
     public void Accept(ProgramVisitor visitor) 

@@ -1,7 +1,9 @@
 ﻿using Practical;
 using Practical.Commands;
+using Practical.ProgramVisitors;
+using Practical.Writing;
 
-// var logger = new Logger();
+var logger = new Logger();
 // List<ICommand> program =
 // [
 //     new Turn(RotationDirection.Left) { Logger = logger },

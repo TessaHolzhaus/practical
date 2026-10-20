@@ -1,4 +1,5 @@
-﻿using Practical.Commands;
+﻿using NSubstitute;
+using Practical.Commands;
 using Practical.ProgramVisitors;
 
 namespace PracticalTests;

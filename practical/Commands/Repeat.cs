@@ -10,12 +10,14 @@ public class Repeat : ICommandParser<Repeat>
     public int Times { get; set; }
 
 
-    public Repeat(int times)
+    public Repeat(int times) : this(times, []) {}
+    public Repeat(int times, List<ICommand> commands)
     {
         Times = times;
-        _commands = new List<ICommand>();
+        _commands = commands;
     }
 
+    
     public static Repeat Parse(string[] arguments) //TODO: Implement error checking
     {
         if (!arguments.Any() || !int.TryParse(arguments[0], out int times) || times < 0)

@@ -20,9 +20,9 @@ public class Repeat : ICommandParser<Repeat>
     
     public static Repeat Parse(string[] arguments) //TODO: Implement error checking
     {
-        if (!arguments.Any() || !int.TryParse(arguments[0], out int times) || times < 0)
+        if (arguments is not [{ } arg1] || !int.TryParse(arg1, out int times) || times < 0)
         {
-            throw new Exception("Repeat not valid");
+            throw new ArgumentException("Repeat not valid");
         }
         
         return new Repeat(times);

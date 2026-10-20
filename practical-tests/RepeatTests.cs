@@ -38,7 +38,7 @@ public class RepeatTests
     [InlineData("15")]
     public void Parse(string arguments)
     {
-        Repeat repeat = Repeat.Parse([arguments]);
+        Repeat repeat = Repeat.Parse([arguments, "times"]);
 
         int.TryParse(arguments, out int v);
         

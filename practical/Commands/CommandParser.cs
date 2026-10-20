@@ -11,13 +11,13 @@ public class CommandParser(ILogger? logger = null)
     private Stack<ICollection<ICommand>> _scopesStack = [];
     private int _currentIndentation = 0;
 
-    public void EnterScope(ICollection<ICommand> scope)
+    private void EnterScope(ICollection<ICommand> scope)
     {
         _scopesStack.Push(scope);
         _currentIndentation++;
     }
 
-    public void ExitScope()
+    private void ExitScope()
     {
         _scopesStack.Pop();
         _currentIndentation--;
@@ -31,21 +31,23 @@ public class CommandParser(ILogger? logger = null)
         _programScope = [];
     }
     
-    public List<ICommand> CommandParse(StreamReader reader)
+    public List<ICommand> CommandParse(TextReader reader)
     {
         Reset();
         while (reader.ReadLine() is { } line)
         {
-            if (line.IsWhiteSpace()) continue;
             var commandAsChars = Indent.TrimFromStart(line.UnsafeMoveToSpan(), out var indentation);
             if (commandAsChars.IsEmpty)
                 throw new InvalidOperationException($"After trimming the indentation {indentation} times no characters where left");
-                
-            if (char.IsWhiteSpace(commandAsChars[0]))
-                throw new InvalidOperationException($"After trimming the indentation {indentation} times there was still whitespace: {commandAsChars}");
 
+            if (char.IsWhiteSpace(commandAsChars[0]))
+            {
+                if (commandAsChars[1..].IsWhiteSpace()) continue;
+                throw new InvalidOperationException($"After trimming the indentation {indentation} times there was still whitespace: {commandAsChars}");
+            }
+            
             if (indentation > _currentIndentation)
-                throw new Exception($"Invalid indentation in {line}");
+                throw new InvalidOperationException($"Invalid indentation in {line}");
             
             while (indentation < _currentIndentation)
                 ExitScope();

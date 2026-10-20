@@ -54,6 +54,6 @@ public class Repeat : ICommand, ICommandParser<Repeat>
         writer.WriteSpace();
         writer.Write(Times);
         writer.WriteSpace();
-        writer.WriteLine("times");
+        writer.Write("times");
     }
 }

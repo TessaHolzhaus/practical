@@ -13,15 +13,20 @@ public class TurnTests
     private readonly StringWriter _writer = new();
 
     [Theory]
-    [InlineData(RotationDirection.Left)]
-    [InlineData(RotationDirection.Right)]
-
-    public void ExecuteTurn_East_Player(RotationDirection direction)
+    [InlineData(RotationDirection.Left, Direction.East, Direction.North)]
+    [InlineData(RotationDirection.Right, Direction.East, Direction.South)]
+    [InlineData(RotationDirection.Left, Direction.South, Direction.East)]
+    [InlineData(RotationDirection.Right, Direction.South,Direction.West)]
+    [InlineData(RotationDirection.Left, Direction.West, Direction.South)]
+    [InlineData(RotationDirection.Right, Direction.West, Direction.North)]
+    [InlineData(RotationDirection.Left, Direction.North,Direction.West)]
+    [InlineData(RotationDirection.Right, Direction.North, Direction.East)]
+    public void ExecuteTurn_East_Player(RotationDirection rotationDirection, Direction direction, Direction expected)
     {
-        _player.Direction = Direction.East;
-        Turn turn = new Turn(direction);
+        _player.Direction = direction;
+        Turn turn = new Turn(rotationDirection);
         turn.Execute(_player);
-        Assert.Equal(direction is RotationDirection.Left ? Direction.North : Direction.South, _player.Direction);
+        Assert.Equal(expected, _player.Direction);
     }
 
     [Fact]

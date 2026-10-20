@@ -1,0 +1,5 @@
+Move 10
+Move 40
+Turn left
+Move 5
+Turn right

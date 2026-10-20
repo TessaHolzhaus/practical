@@ -45,10 +45,13 @@ void Metrics()
 {
     CommandCountMetric ccm = new();
     ccm.Visit(program);
-    RepeatCountMetric rcm = new();
-    rcm.Visit(program);
     NestedCountMetric ncm = new();
     ncm.Visit(program);
+    RepeatCountMetric rcm = new();
+    rcm.Visit(program);
+    Console.WriteLine($"Number of commands: {ccm.CommandCount}");
+    Console.WriteLine($"Max nesting: {ncm.MaxNesting}");
+    Console.WriteLine($"Number of repeats: {rcm.RepeatCount}");
 }
 
 void ExecuteCode()

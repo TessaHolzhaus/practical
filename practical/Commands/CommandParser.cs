@@ -38,7 +38,12 @@ public class CommandParser(ILogger? logger = null)
         {
             if (line.IsWhiteSpace()) continue;
             var commandAsChars = Indent.TrimFromStart(line.UnsafeMoveToSpan(), out var indentation);
-            
+            if (commandAsChars.IsEmpty)
+                throw new InvalidOperationException($"After trimming the indentation {indentation} times no characters where left");
+                
+            if (char.IsWhiteSpace(commandAsChars[0]))
+                throw new InvalidOperationException($"After trimming the indentation {indentation} times there was still whitespace: {commandAsChars}");
+
             if (indentation > _currentIndentation)
                 throw new Exception($"Invalid indentation in {line}");
             
@@ -59,7 +64,7 @@ public class CommandParser(ILogger? logger = null)
     private ICommand ParseCommand(string line)
     {
         if (char.IsWhiteSpace(line, 0))
-            throw new ArgumentException($"Invalid whitespace in command: {line}");
+            throw new ArgumentException($"Invalid whitespace in command after repeatedly removing the indentation char: {line}");
 
         string[] words = line.Split(' ');
 

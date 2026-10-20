@@ -1,20 +1,20 @@
-Turn Left
+Turn left
 Move 10
 Repeat 3 times
     Move 5
-    Turn Right
+    Turn right
     Repeat 2 times
         Move 8
-        Turn Left
+        Turn left
         Move 3
     Move 12
-    Turn Left
+    Turn left
 Move 20
-Turn Right
+Turn right
 Repeat 4 times
     Repeat 2 times
         Move 6
-        Turn Right
+        Turn right
     Move 10
-    Turn Left
+    Turn left
 Move 5

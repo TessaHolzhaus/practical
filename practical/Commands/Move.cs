@@ -16,9 +16,9 @@ public class Move : ICommand, ICommandParser<Move>
 
     public static Move Parse(string[] arguments) //TODO: Implement error checking
     {
-        if (!int.TryParse(arguments[0], out int distance))
+        if (arguments is not [{ } arg1] || !int.TryParse(arg1, out int distance))
         {
-            throw new Exception("Move not valid");
+            throw new ArgumentException("Move not valid");
         }
         return new Move(distance);
     }

@@ -21,12 +21,19 @@ public class Turn : ICommandParser<Turn>
         Rotation = rotation;
     }
 
-    public static Turn Parse(string[] arguments) //TODO: Implement error checking
+    public static Turn Parse(string[] arguments)
     {
-        if (!Enum.TryParse(arguments[0], out RotationDirection rotation))
+        
+        if (arguments is not [{ } arg1])
         {
-            throw new Exception("Turn not valid");
+            throw new ArgumentException("Expected 1 argument");
         }
+        var rotation = arg1 switch
+        {
+            "right" => RotationDirection.Right,
+            "left" => RotationDirection.Left,
+            _ => throw new ArgumentException("Turn not valid")
+        };
         return new Turn(rotation);
     }
 

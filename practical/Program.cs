@@ -54,4 +54,4 @@ foreach (ICommand command in program)
 {
     command.Execute(p);
 }
-Console.WriteLine($"End state ({p.Position.X}, {p.Position.Y})  facing {p.Direction}");
+Console.WriteLine($"End state ({p.Position.X}, {p.Position.Y}) facing {p.Direction}");

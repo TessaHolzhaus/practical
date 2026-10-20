@@ -1,75 +1,90 @@
+using Practical.Writing;
+
 namespace Practical.Commands;
 
-public class CommandParser
+public class CommandParser(ILogger? logger = null)
 {
-    public List<ICommand> CommandParse() //TODO: Implement error checking
+    public ILogger? Logger { get; set; } = logger;
+    public Indent Indent { get; set; } = new(' ', 4);
+
+    private List<ICommand> _programScope = [];
+    private Stack<ICollection<ICommand>> _scopesStack = [];
+    private int _currentIndentation = 0;
+
+    public void EnterScope(ICollection<ICommand> scope)
     {
-        List<ICommand> commands = new();
-        Stack<(int Depth, Repeat Command)> repeatStack = new();
-        
-        using StreamReader reader = new StreamReader("../../../importedCommands.txt");
-        string line;
-        while ((line = reader.ReadLine()) != null)
+        _scopesStack.Push(scope);
+        _currentIndentation++;
+    }
+
+    public void ExitScope()
+    {
+        _scopesStack.Pop();
+        _currentIndentation--;
+    }
+
+    private ICollection<ICommand> CurrentScope => _scopesStack.TryPeek(out var result) ? result : _programScope;
+
+    private void Reset()
+    {
+        _scopesStack = [];
+        _programScope = [];
+    }
+    
+    public List<ICommand> CommandParse(StreamReader reader)
+    {
+        Reset();
+        while (reader.ReadLine() is { } line)
         {
-            int indentation = line.Length - line.TrimStart(' ').Length;
-            if (indentation % 4 != 0)
-            {
-                throw new Exception("Indentation invalid");
-            }
+            if (line.IsWhiteSpace()) continue;
+            var commandAsChars = Indent.TrimFromStart(line.UnsafeMoveToSpan(), out var indentation);
             
-            int depth = indentation / 4;
-
-            while (repeatStack.Count > 0 && repeatStack.Peek().Depth >= depth)
-            {
-                repeatStack.Pop();
-            }
-
-            int expectedDepth;
-            if (repeatStack.Count == 0) expectedDepth = 0;
-            else
-            {
-                expectedDepth = repeatStack.Peek().Depth + 1;
-            }
-
-            if (depth != expectedDepth)
-            {
+            if (indentation > _currentIndentation)
                 throw new Exception($"Invalid indentation in {line}");
-            }
             
-            ICommand command = GetCommand(line.TrimStart(' '));
+            while (indentation < _currentIndentation)
+                ExitScope();
+                
+            var command = ParseCommand(new string(commandAsChars));
+            CurrentScope.Add(command);
             
-            if (repeatStack.Count == 0) commands.Add(command);
-            else
-            {
-                repeatStack.Peek().Command.AddCommand(command);
-            }
-
-            if (command is Repeat repeat)
-            {
-                repeatStack.Push((depth,repeat));
-            }
+            if (command is Repeat { MutCommands: var repeatScope })
+                EnterScope(repeatScope);
+            
         }
-        return commands;
+        return _programScope;
     }
 
 
-    public ICommand GetCommand(string line)
+    private ICommand ParseCommand(string line)
     {
+        if (char.IsWhiteSpace(line, 0))
+            throw new ArgumentException($"Invalid whitespace in command: {line}");
+
         string[] words = line.Split(' ');
 
         if (words.Length == 0)
         {
-            throw new Exception("Empty command");
+            throw new ArgumentException("Empty command");
         }
         string commandName = words[0];
         string[] arguments = words[1..];
         ICommand command = commandName switch
         {
-            "Move" => Move.Parse(arguments),
-            "Turn" => Turn.Parse(arguments),
+            "Move" => Move.Parse(arguments, logger),
+            "Turn" => Turn.Parse(arguments, logger),
             "Repeat" => Repeat.Parse(arguments),
-            _ => throw new Exception($"Unknown command: {commandName}")
+            _ => throw new ArgumentException($"Unknown command: {commandName}")
         };
         return command;
+    }
+}
+
+public static class SpanHelpers
+{
+    public static unsafe Span<char> UnsafeMoveToSpan(this string? str)
+    {
+        if (str is null) return Span<char>.Empty;
+        fixed (char* p = str) return new Span<char>(p, str.Length);
     }
 }

@@ -1,6 +1,6 @@
 namespace Practical.Commands;
 
-public interface ICommandParser<TCommand> : ICommand
+public interface ICommandParser<TCommand>
 {
-    static abstract TCommand Parse(string[] arguments);
+    static abstract TCommand Parse(string[] arguments, ILogger? logger = null);
 }

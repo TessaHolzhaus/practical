@@ -14,13 +14,13 @@ public class Move : ICommand, ICommandParser<Move>
         Distance = distance;
     }
 
-    public static Move Parse(string[] arguments) //TODO: Implement error checking
+    public static Move Parse(string[] arguments, ILogger? logger = null) //TODO: Implement error checking
     {
         if (arguments is not [{ } arg1] || !int.TryParse(arg1, out int distance))
         {
             throw new ArgumentException("Move not valid");
         }
-        return new Move(distance);
+        return new Move(distance) { Logger = logger };
     }
 
     public void Accept(ProgramVisitor visitor) 

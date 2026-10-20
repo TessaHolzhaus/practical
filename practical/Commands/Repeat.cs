@@ -3,12 +3,12 @@ using Practical.Writing;
 
 namespace Practical.Commands;
 
-public class Repeat : ICommandParser<Repeat>
+public class Repeat : ICommand, ICommandParser<Repeat>
 {
     private List<ICommand> _commands;
     public IReadOnlyCollection<ICommand> Commands => _commands.AsReadOnly();
+    internal List<ICommand> MutCommands => _commands;
     public int Times { get; set; }
-
 
     public Repeat(int times) : this(times, []) {}
     public Repeat(int times, List<ICommand> commands)
@@ -18,13 +18,13 @@ public class Repeat : ICommandParser<Repeat>
     }
 
     
-    public static Repeat Parse(string[] arguments) //TODO: Implement error checking
+    public static Repeat Parse(string[] arguments, ILogger? logger = null) //TODO: Implement error checking
     {
-        if (arguments is not [{ } arg1] || !int.TryParse(arg1, out int times) || times < 0)
+        if (arguments is not [{ } arg1, "times"] || !int.TryParse(arg1, out int times) || times < 0)
         {
             throw new ArgumentException("Repeat not valid");
         }
-        
+
         return new Repeat(times);
     }
 

@@ -10,7 +10,7 @@ public enum RotationDirection
     Right
 }
 
-public class Turn : ICommandParser<Turn>
+public class Turn : ICommand, ICommandParser<Turn>
 {
     public RotationDirection Rotation { get; set; }
     public ILogger? Logger { get; set; }
@@ -21,20 +21,18 @@ public class Turn : ICommandParser<Turn>
         Rotation = rotation;
     }
 
-    public static Turn Parse(string[] arguments)
+    public static Turn Parse(string[] arguments, ILogger? logger = null) //TODO: Implement error checking
     {
-        
         if (arguments is not [{ } arg1])
-        {
             throw new ArgumentException("Expected 1 argument");
-        }
+        
         var rotation = arg1 switch
         {
             "right" => RotationDirection.Right,
             "left" => RotationDirection.Left,
             _ => throw new ArgumentException("Turn not valid")
         };
-        return new Turn(rotation);
+        return new Turn(rotation) { Logger = logger };
     }
 
     public void Accept(ProgramVisitor visitor)

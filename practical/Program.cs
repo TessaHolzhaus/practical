@@ -1,52 +1,18 @@
 ﻿using Practical;
 using Practical.Commands;
-using Practical.ProgramVisitors;
-using Practical.Writing;
+
+
+Console.WriteLine("What program do you want to run? (<path> | default)");
+var response = Console.ReadLine() ?? throw new NullReferenceException("why null!!");
+
+var programReader = response switch
+{
+    "default" => new StreamReader("../../../importedCommands.txt"),
+    var path => new StreamReader(path)
+};
 
 var logger = new Logger();
-// List<ICommand> program =
-// [
-//     new Turn(RotationDirection.Left) { Logger = logger },
-//     new Move(10) { Logger = logger },
-//
-//     new Repeat(3,
-//     [
-//         new Move(5) { Logger = logger },
-//         new Turn(RotationDirection.Right) { Logger = logger },
-//
-//         new Repeat(2,
-//         [
-//             new Move(8) { Logger = logger },
-//             new Turn(RotationDirection.Left) { Logger = logger },
-//             new Move(3) { Logger = logger }
-//         ]),
-//
-//         new Move(12) { Logger = logger },
-//         new Turn(RotationDirection.Left) { Logger = logger }
-//     ]),
-//
-//     new Move(20) { Logger = logger },
-//     new Turn(RotationDirection.Right) { Logger = logger },
-//
-//     new Repeat(4,
-//     [
-//         new Repeat(2,
-//         [
-//             new Move(6) { Logger = logger },
-//             new Turn(RotationDirection.Right) { Logger = logger }
-//         ]),
-//
-//         new Move(10) { Logger = logger },
-//         new Turn(RotationDirection.Left) { Logger = logger }
-//     ]),
-//
-//     new Move(5) { Logger = logger },
-// ];
-
-List<ICommand> program = new CommandParser().CommandParse();
-var programPrinter = new CommandStreamer(Console.Out) {
-    Indent = new Indent(' ', 4)
-};
+var program = new CommandParser(logger).CommandParse(programReader);
 
 var player = new Player();
 foreach (var command in program)

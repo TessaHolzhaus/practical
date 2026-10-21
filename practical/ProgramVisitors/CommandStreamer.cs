@@ -3,6 +3,7 @@ using Practical.Writing;
 
 namespace Practical.ProgramVisitors;
 
+//Example of a visitor implementation. Is not part of the codebase.
 public class CommandStreamer : ProgramVisitor
 {
     public TextWriter Writer { get; set; }

@@ -16,9 +16,8 @@ public class Repeat : ICommand, ICommandParser<Repeat>
         Times = times;
         _commands = commands;
     }
-
     
-    public static Repeat Parse(string[] arguments, ILogger? logger = null) //TODO: Implement error checking
+    public static Repeat Parse(string[] arguments, ILogger? logger = null)
     {
         if (arguments is not [{ } arg1, "times"] || !int.TryParse(arg1, out int times) || times < 0)
         {
@@ -26,11 +25,6 @@ public class Repeat : ICommand, ICommandParser<Repeat>
         }
 
         return new Repeat(times);
-    }
-
-    public void AddCommand(ICommand command)
-    {
-        _commands.Add(command);
     }
 
     public void Accept(ProgramVisitor visitor)

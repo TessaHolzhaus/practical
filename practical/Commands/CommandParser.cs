@@ -2,6 +2,10 @@ using Practical.Writing;
 
 namespace Practical.Commands;
 
+public interface ICommandParser<T>
+{
+    static abstract T Parse(string[] arguments, ILogger? logger = null);
+}
 public class CommandParser(ILogger? logger = null)
 {
     public ILogger? Logger { get; set; } = logger;
@@ -62,7 +66,6 @@ public class CommandParser(ILogger? logger = null)
         return _programScope;
     }
 
-
     private ICommand ParseCommand(string line)
     {
         if (char.IsWhiteSpace(line, 0))
@@ -78,8 +81,8 @@ public class CommandParser(ILogger? logger = null)
         string[] arguments = words[1..];
         ICommand command = commandName switch
         {
-            "Move" => Move.Parse(arguments, logger),
-            "Turn" => Turn.Parse(arguments, logger),
+            "Move" => Move.Parse(arguments, Logger),
+            "Turn" => Turn.Parse(arguments, Logger),
             "Repeat" => Repeat.Parse(arguments),
             _ => throw new ArgumentException($"Unknown command: {commandName}")
         };

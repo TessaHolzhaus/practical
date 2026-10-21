@@ -21,7 +21,7 @@ public class Turn : ICommand, ICommandParser<Turn>
         Rotation = rotation;
     }
 
-    public static Turn Parse(string[] arguments, ILogger? logger = null) //TODO: Implement error checking
+    public static Turn Parse(string[] arguments, ILogger? logger = null)
     {
         if (arguments is not [{ } arg1])
             throw new ArgumentException("Expected 1 argument");

@@ -1,9 +1,10 @@
+using System.Diagnostics.CodeAnalysis;
 using Practical.ProgramVisitors;
 using Practical.Writing;
 
 namespace Practical.Commands;
 
-public class Repeat : ICommand, ICommandParser<Repeat>
+public class Repeat : ICommand, IParsableCommand
 {
     private List<ICommand> _commands;
     public IReadOnlyCollection<ICommand> Commands => _commands.AsReadOnly();
@@ -17,20 +18,50 @@ public class Repeat : ICommand, ICommandParser<Repeat>
         _commands = commands;
     }
 
+    private const string Prefix = "Repeat";
+    private const char Space = ' ';
+    private const string Suffix = "times";
     
-    public static Repeat Parse(string[] arguments, ILogger? logger = null) //TODO: Implement error checking
+    public static bool TryParse(ReadOnlySpan<char> line, [MaybeNullWhen(false)] out ICommandBuilder builder)
     {
-        if (arguments is not [{ } arg1, "times"] || !int.TryParse(arg1, out int times) || times < 0)
+        if (!line.StartsWith(Prefix) ||
+            line[Prefix.Length..] is not [Space, .. var maybeArgs])
         {
-            throw new ArgumentException("Repeat not valid");
+            builder = null;
+            return false;
+        }
+        
+        var separator = maybeArgs.IndexOf(Space);
+
+        if (separator < 0)
+        {
+            builder = null;
+            return false;
+        }
+            
+        if(!int.TryParse(maybeArgs[..separator], out var times) || maybeArgs[separator..] is Suffix)
+        {
+            builder = null;
+            return false;
         }
 
-        return new Repeat(times);
+        builder = new Builder(times);
+        return true;
     }
 
-    public void AddCommand(ICommand command)
+    private class Builder(int times) : ICommandBuilder
     {
-        _commands.Add(command);
+        private readonly List<ICommand> _commands = [];
+
+        public void UseLogger(ILogger? logger) {}
+        public bool TryAddCommand(ICommand command)
+        {
+            _commands.Add(command);
+            return  true;
+        }
+
+        public bool TryOpenNextScope(ReadOnlySpan<char> header) => false;
+        public ICommand Build() => new Repeat(times, _commands);
     }
 
     public void Accept(ProgramVisitor visitor)

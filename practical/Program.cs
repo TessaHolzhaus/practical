@@ -20,7 +20,13 @@ string AskProgram()
 var executePath = AskProgram();
 StreamReader programReader = new(executePath);
 var logger = new Logger();
-var program = new CommandParser(logger).CommandParse(programReader);
+var program = new ProgramParser([
+        new CommandParser<Move>(),
+        new CommandParser<Turn>(),
+        new CommandParser<Repeat>()
+    ], logger
+).ParseProgram(programReader);
+
 DetermineAction();
 
 void DetermineAction()

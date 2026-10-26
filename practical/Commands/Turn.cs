@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using Practical.ProgramVisitors;
 using Practical.Writing;
 
@@ -10,7 +11,7 @@ public enum RotationDirection
     Right
 }
 
-public class Turn : ICommand, ICommandParser<Turn>
+public class Turn : ICommand, IParsableCommand
 {
     public RotationDirection Rotation { get; set; }
     public ILogger? Logger { get; set; }
@@ -20,19 +21,41 @@ public class Turn : ICommand, ICommandParser<Turn>
     {
         Rotation = rotation;
     }
+    
+    private const string Prefix = "Turn";
+    private const char Space = ' ';
+    private const string Right = "right";
+    private const string Left = "left";
 
-    public static Turn Parse(string[] arguments, ILogger? logger = null) //TODO: Implement error checking
+    private static bool TryParseRotation(ReadOnlySpan<char> chars, out RotationDirection rotation)
     {
-        if (arguments is not [{ } arg1])
-            throw new ArgumentException("Expected 1 argument");
-        
-        var rotation = arg1 switch
+        switch (chars)
         {
-            "right" => RotationDirection.Right,
-            "left" => RotationDirection.Left,
-            _ => throw new ArgumentException("Turn not valid")
-        };
-        return new Turn(rotation) { Logger = logger };
+            case Right:
+                rotation = RotationDirection.Right;
+                return true;
+            case Left:
+                rotation = RotationDirection.Left;
+                return true;
+            default:
+                rotation = default;
+                return false;
+        }
+    }
+    
+    public static bool TryParse(ReadOnlySpan<char> line, [MaybeNullWhen(false)] out ICommandBuilder builder)
+    {
+        if (
+            line.StartsWith(Prefix) &&
+            line[Prefix.Length..] is [Space, ..var maybeRotation] &&
+            TryParseRotation(maybeRotation, out var rotation)
+        ) {
+            builder = new ScopelessCommandBuilder(logger => new Turn(rotation) { Logger = logger });
+            return true;
+        }
+
+        builder = null;
+        return false;
     }
 
     public void Accept(ProgramVisitor visitor)
@@ -57,8 +80,12 @@ public class Turn : ICommand, ICommandParser<Turn>
     
     public void WriteHeaderTo(TextWriter writer)
     {
-        writer.Write("Turn");
-        writer.WriteSpace();
-        writer.Write(Rotation.ToString().ToLowerInvariant());
+        writer.Write(Prefix);
+        writer.Write(Space);
+        writer.Write(Rotation switch {
+            RotationDirection.Left => Left,
+            RotationDirection.Right => Right,
+            _ => throw new UnreachableException()
+        });
     }
 }

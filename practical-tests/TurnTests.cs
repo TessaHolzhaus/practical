@@ -21,7 +21,7 @@ public class TurnTests
     [InlineData(RotationDirection.Right, Direction.West, Direction.North)]
     [InlineData(RotationDirection.Left, Direction.North,Direction.West)]
     [InlineData(RotationDirection.Right, Direction.North, Direction.East)]
-    public void ExecuteTurn_East_Player(RotationDirection rotationDirection, Direction direction, Direction expected)
+    public void Execute_TurnsPlayer(RotationDirection rotationDirection, Direction direction, Direction expected)
     {
         _player.Direction = direction;
         Turn turn = new Turn(rotationDirection);
@@ -40,31 +40,30 @@ public class TurnTests
     }
     
     [Theory]
-    [InlineData("left")]
-    [InlineData("right")]
-    public void Parse(string arguments)
+    [InlineData("Turn left", RotationDirection.Left)]
+    [InlineData("Turn right", RotationDirection.Right)]
+    public void TryParse_Valid_ReturnsCorrectBuilder(string commandString, RotationDirection direction)
     {
-        Turn turn = Turn.Parse([arguments]);
+        if (!Turn.TryParse(commandString, out var builder))
+            Assert.Fail();
 
-        Enum.TryParse(arguments, true, out RotationDirection v);
+        var command = Assert.IsType<Turn>(builder.Build());
         
-        Assert.Equal(v, turn.Rotation);
+        Assert.Equal(direction, command.Rotation);
     }
     
     [Theory]
-    [InlineData([])]
-    [InlineData("15","13")]
-    [InlineData("Een string")]
-    [InlineData("Right")]
-    [InlineData("Left")]
-    public void Parse_Throws(params string[] args)
+    [InlineData("")]
+    [InlineData("23 42")]
+    [InlineData("move 400")]
+    [InlineData("Move")]
+    [InlineData("Move 15 13")]
+    [InlineData("Move Een string")]
+    public void TryParse_Invalid_ReturnsFalse(string args)
     {
-        Action action = () => Turn.Parse(args);
-
-        Assert.Throws<ArgumentException>(action);
+        Assert.False(Move.TryParse(args, out var builder));
+        Assert.Null(builder);
     }
-
-    private string Output => _writer.ToString();
     
     [Theory]
     [InlineData(RotationDirection.Right)]
@@ -76,4 +75,7 @@ public class TurnTests
         
         Assert.Equal($"Turn {direction.ToString().ToLower()}", Output);
     }
+    
+    private string Output => _writer.ToString();
+
 }

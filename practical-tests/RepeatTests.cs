@@ -13,13 +13,13 @@ public class RepeatTests
     [InlineData(3)]
     [InlineData(4)]
 
-    public void ExecuteRepeat_Player(int times)
+    public void Execute_ExecutesCommandRepeatedly(int times)
     {
         var command = Substitute.For<ICommand>();
         Repeat repeat = new Repeat(times, [command]);
         
         repeat.Execute(_player);
-        command.Received().Execute(_player);
+        command.Received(times).Execute(_player);
     }
 
     [Fact]
@@ -34,29 +34,29 @@ public class RepeatTests
     }
     
     [Theory]
-    [InlineData("10")]
-    [InlineData("15")]
-    public void Parse(string arguments)
+    [InlineData("Repeat 10 times", 10)]
+    [InlineData("Repeat 15 times", 15)]
+    public void TryParse_ValidEmpty_ReturnsCorrectBuilder(string commandString, int expectedTimes)
     {
-        Repeat repeat = Repeat.Parse([arguments, "times"]);
+        if (!Repeat.TryParse(commandString, out var builder))
+            Assert.Fail();
 
-        int.TryParse(arguments, out int v);
+        var command = Assert.IsType<Repeat>(builder.Build());
         
-        Assert.Equal(v, repeat.Times);
+        Assert.Equal(expectedTimes, command.Times);
+        Assert.Equal([], command.Commands);
     }
     
     [Theory]
-    [InlineData([])]
-    [InlineData("15","13")]
-    [InlineData("-10")]
-    [InlineData("Een string")]
-    [InlineData("Right")]
-    [InlineData("Left")]
-    public void Parse_Throws(params string[] args)
+    [InlineData("" )]
+    [InlineData("Repeat 15 13")]
+    [InlineData("repeat 1 times" )]
+    [InlineData("Repeat -10")]
+    [InlineData("Repeat Een string")]
+    [InlineData("Repeat 13 Strings")]
+    public void TryParse_Invalid_ReturnsFalse(string args)
     {
-        Action action = () => Repeat.Parse(args);
-
-        Assert.Throws<ArgumentException>(action);
+        Assert.False(Move.TryParse(args, out _));
     }
 
     private string Output => _writer.ToString();
@@ -69,6 +69,6 @@ public class RepeatTests
         Repeat repeat = new Repeat(times);
         repeat.WriteHeaderTo(_writer);
         
-        Assert.Equal($"Repeat {times} times{Environment.NewLine}", Output);
+        Assert.Equal($"Repeat {times} times", Output);
     }
 }

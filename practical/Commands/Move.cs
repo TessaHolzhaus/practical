@@ -1,10 +1,11 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
 using Practical.ProgramVisitors;
 using Practical.Writing;
 
 namespace Practical.Commands;
 
-public class Move : ICommand, ICommandParser<Move>
+public class Move : ICommand, IParsableCommand
 {
     public int Distance { get; set; }
     public ILogger? Logger { get; set; }
@@ -13,14 +14,23 @@ public class Move : ICommand, ICommandParser<Move>
     {
         Distance = distance;
     }
-
-    public static Move Parse(string[] arguments, ILogger? logger = null) //TODO: Implement error checking
+    
+    private const string Prefix = "Move";
+    private const char Space = ' ';
+    
+    public static bool TryParse(ReadOnlySpan<char> line, [MaybeNullWhen(false)] out ICommandBuilder builder)
     {
-        if (arguments is not [{ } arg1] || !int.TryParse(arg1, out int distance))
-        {
-            throw new ArgumentException("Move not valid");
+        if (
+            line.StartsWith(Prefix) &&
+            line[Prefix.Length..] is [Space, ..var maybeNumber] &&
+            int.TryParse(maybeNumber, out var distance)
+        ) {
+            builder = new ScopelessCommandBuilder(logger => new Move(distance) { Logger = logger });
+            return true;
         }
-        return new Move(distance) { Logger = logger };
+
+        builder = null;
+        return false;
     }
 
     public void Accept(ProgramVisitor visitor) 
@@ -44,8 +54,8 @@ public class Move : ICommand, ICommandParser<Move>
     
     public void WriteHeaderTo(TextWriter writer)
     {
-        writer.Write("Move");
-        writer.WriteSpace();
+        writer.Write(Prefix);
+        writer.Write(Space);
         writer.Write(Distance);
     }
 }

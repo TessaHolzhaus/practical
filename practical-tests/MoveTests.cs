@@ -15,7 +15,7 @@ public class MoveTests
     [InlineData(500)]
     [InlineData(-10)]
     [InlineData(0)]
-    public void ExecuteMove_DirectionNorth_MovePlayer(int moveDist)
+    public void Execute_DirectionNorth_MovePlayer(int moveDist)
     {
         _player.Direction = Direction.North;
         Move move = new Move(moveDist);
@@ -28,7 +28,7 @@ public class MoveTests
     [InlineData(500)]
     [InlineData(-10)]
     [InlineData(0)]
-    public void ExecuteMove_DirectionEast_MovePlayer(int moveDist)
+    public void Execute_DirectionEast_MovePlayer(int moveDist)
     {
         _player.Direction = Direction.East;
         Move move = new Move(moveDist);
@@ -41,7 +41,7 @@ public class MoveTests
     [InlineData(500)]
     [InlineData(-10)]
     [InlineData(0)]
-    public void ExecuteMove_DirectionSouth_MovePlayer(int moveDist)
+    public void Execute_DirectionSouth_MovePlayer(int moveDist)
     {
         _player.Direction = Direction.South;
         Move move = new Move(moveDist);
@@ -54,7 +54,7 @@ public class MoveTests
     [InlineData(500)]
     [InlineData(-10)]
     [InlineData(0)]
-    public void ExecuteMove_DirectionWest_MovePlayer(int moveDist)
+    public void Execute_DirectionWest_MovePlayer(int moveDist)
     {
         _player.Direction = Direction.West;
         Move move = new Move(moveDist);
@@ -73,27 +73,29 @@ public class MoveTests
     }
     
     [Theory]
-    [InlineData("15")]
-    [InlineData("400")]
-    [InlineData("-10")]
-    public void Parse(params string[] arguments)
+    [InlineData("Move 15", 15)]
+    [InlineData("Move 400", 400)]
+    [InlineData("Move -10", -10)]
+    public void TryParse_Valid_ReturnsCorrectBuilder(string commandString, int expectedDistance)
     {
-        Move move = Move.Parse(arguments);
+        if (!Move.TryParse(commandString, out var builder))
+            Assert.Fail();
 
-        var t = int.TryParse(arguments[0], out int v);
+        var command = Assert.IsType<Move>(builder.Build());
         
-        Assert.Equal(v, move.Distance);
+        Assert.Equal(expectedDistance, command.Distance);
     }
     
     [Theory]
-    [InlineData([])]
-    [InlineData("15","13")]
-    [InlineData("Een string")]
-    public void Parse_Throws(params string[] args)
+    [InlineData("")]
+    [InlineData("23 42")]
+    [InlineData("move 400")]
+    [InlineData("Move")]
+    [InlineData("Move 15 13")]
+    [InlineData("Move Een string")]
+    public void TryParse_Invalid_ReturnsFalse(string args)
     {
-        Action action = () => Move.Parse(args);
-
-        Assert.Throws<ArgumentException>(action);
+        Assert.False(Move.TryParse(args, out _));
     }
 
     private string Output => _writer.ToString();
@@ -104,7 +106,7 @@ public class MoveTests
     [InlineData(500)]
     public void WriteHeaderTo(int dist)
     {
-        Move move = new Move(dist);
+        var move = new Move(dist);
         move.WriteHeaderTo(_writer);
         
         Assert.Equal($"Move {dist}", Output);

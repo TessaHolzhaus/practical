@@ -13,4 +13,5 @@ public abstract class ProgramVisitor
     public abstract void VisitMove(Move move);
     public abstract void VisitTurn(Turn move);
     public abstract void VisitRepeat(Repeat repeat);
+    public abstract void VisitRepeatUntil(RepeatUntil repeatUntil);
 }

@@ -84,6 +84,7 @@ public class CommandParser(ILogger? logger = null)
             "Move" => Move.Parse(arguments, Logger),
             "Turn" => Turn.Parse(arguments, Logger),
             "Repeat" => Repeat.Parse(arguments),
+            "RepeatUntil" => RepeatUntil.Parse(arguments),
             _ => throw new ArgumentException($"Unknown command: {commandName}")
         };
         return command;

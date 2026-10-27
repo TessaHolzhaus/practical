@@ -15,7 +15,11 @@ public class CommandCountMetric : ProgramVisitor
     public override void VisitRepeat(Repeat repeat)
     {
         CommandCount++;
-        foreach (var command in repeat.Commands)
-            command.Accept(this);       
+        Visit(repeat.Commands);      
+    }
+    public override void VisitRepeatUntil(RepeatUntil repeatUntil)
+    {
+        CommandCount++;
+        Visit(repeatUntil.Commands);
     }
 }

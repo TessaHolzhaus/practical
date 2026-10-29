@@ -20,6 +20,8 @@ public class Turn : ICommand, ICommandParser<Turn>
     {
         Rotation = rotation;
     }
+    
+    const string Prefix = "Turn";
 
     public static Turn Parse(string[] arguments, ILogger? logger = null) //TODO: Implement error checking
     {
@@ -57,7 +59,7 @@ public class Turn : ICommand, ICommandParser<Turn>
     
     public void WriteHeaderTo(TextWriter writer)
     {
-        writer.Write("Turn");
+        writer.Write(Prefix);
         writer.WriteSpace();
         writer.Write(Rotation.ToString().ToLowerInvariant());
     }

@@ -13,6 +13,8 @@ public class Move : ICommand, ICommandParser<Move>
     {
         Distance = distance;
     }
+    
+    const string Prefix = "Move";
 
     public static Move Parse(string[] arguments, ILogger? logger = null) //TODO: Implement error checking
     {
@@ -44,7 +46,7 @@ public class Move : ICommand, ICommandParser<Move>
     
     public void WriteHeaderTo(TextWriter writer)
     {
-        writer.Write("Move");
+        writer.Write(Prefix);
         writer.WriteSpace();
         writer.Write(Distance);
     }

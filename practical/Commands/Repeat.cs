@@ -5,17 +5,18 @@ namespace Practical.Commands;
 
 public class Repeat : ICommand, ICommandParser<Repeat>
 {
-    private List<ICommand> _commands;
-    public IReadOnlyCollection<ICommand> Commands => _commands.AsReadOnly();
-    internal List<ICommand> MutCommands => _commands;
+    public List<ICommand> Commands { get; set; }
     public int Times { get; set; }
 
     public Repeat(int times) : this(times, []) {}
     public Repeat(int times, List<ICommand> commands)
     {
         Times = times;
-        _commands = commands;
+        Commands = commands;
     }
+    
+    const string Prefix = "Repeat";
+    const string Suffix = "times";
 
     
     public static Repeat Parse(string[] arguments, ILogger? logger = null) //TODO: Implement error checking
@@ -28,17 +29,12 @@ public class Repeat : ICommand, ICommandParser<Repeat>
         return new Repeat(times);
     }
 
-    public void AddCommand(ICommand command)
-    {
-        _commands.Add(command);
-    }
-
     public void Accept(ProgramVisitor visitor)
         => visitor.VisitRepeat(this);
 
     public void Execute(Player p)
     {
-        if (!_commands.Any()) return;
+        if (!Commands.Any()) return;
         for (int i = 0; i < Times; i++)
         {
             foreach (ICommand command in Commands)
@@ -50,10 +46,10 @@ public class Repeat : ICommand, ICommandParser<Repeat>
     
     public void WriteHeaderTo(TextWriter writer)
     {
-        writer.Write("Repeat");
+        writer.Write(Prefix);
         writer.WriteSpace();
         writer.Write(Times);
         writer.WriteSpace();
-        writer.Write("times");
+        writer.Write(Suffix);
     }
 }

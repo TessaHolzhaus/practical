@@ -55,7 +55,7 @@ public class CommandParser(ILogger? logger = null)
             var command = ParseCommand(new string(commandAsChars));
             CurrentScope.Add(command);
             
-            if (command is Repeat { MutCommands: var repeatScope })
+            if (command is Repeat { Commands: var repeatScope })
                 EnterScope(repeatScope);
             
         }

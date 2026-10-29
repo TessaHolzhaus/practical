@@ -1,8 +1,7 @@
 namespace Practical;
 
 public interface ILogger
-{
-    public void LogExecution(string message);
+{ 
     public void LogExecution(Action<TextWriter> action);
 }
 
@@ -17,7 +16,6 @@ public class Logger : ILogger
         _loggedActions = [];
     }
 
-
     public void LogExecution(string message)
         => _loggedActions.Add(message);
 
@@ -29,5 +27,4 @@ public class Logger : ILogger
     }
 
     public string LoggedActions => string.Join(", ", _loggedActions) + ".";
-
 }

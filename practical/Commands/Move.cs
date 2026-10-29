@@ -16,7 +16,7 @@ public class Move : ICommand, ICommandParser<Move>
     
     const string Prefix = "Move";
 
-    public static Move Parse(string[] arguments, ILogger? logger = null) //TODO: Implement error checking
+    public static Move Parse(string[] arguments, ILogger? logger = null)
     {
         if (arguments is not [{ } arg1] || !int.TryParse(arg1, out int distance))
         {

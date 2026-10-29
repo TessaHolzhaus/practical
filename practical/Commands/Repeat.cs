@@ -19,7 +19,7 @@ public class Repeat : ICommand, ICommandParser<Repeat>
     const string Suffix = "times";
 
     
-    public static Repeat Parse(string[] arguments, ILogger? logger = null) //TODO: Implement error checking
+    public static Repeat Parse(string[] arguments, ILogger? logger = null)
     {
         if (arguments is not [{ } arg1, "times"] || !int.TryParse(arg1, out int times) || times < 0)
         {

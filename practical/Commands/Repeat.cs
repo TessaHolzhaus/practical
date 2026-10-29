@@ -21,7 +21,7 @@ public class Repeat : ICommand, ICommandParser<Repeat>
     
     public static Repeat Parse(string[] arguments, ILogger? logger = null)
     {
-        if (arguments is not [{ } arg1, "times"] || !int.TryParse(arg1, out int times) || times < 0)
+        if (arguments is not [{ } arg1, Suffix] || !int.TryParse(arg1, out int times) || times < 0)
         {
             throw new ArgumentException("Repeat not valid");
         }

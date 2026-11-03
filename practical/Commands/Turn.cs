@@ -23,7 +23,7 @@ public class Turn : ICommand, ICommandParser<Turn>
     
     const string Prefix = "Turn";
 
-    public static Turn Parse(string[] arguments, ILogger? logger = null)
+    public static Turn Parse(string[] arguments, ILogger? logger = null) 
     {
         if (arguments is not [{ } arg1])
             throw new ArgumentException("Expected 1 argument");
@@ -40,10 +40,10 @@ public class Turn : ICommand, ICommandParser<Turn>
     public void Accept(ProgramVisitor visitor)
         => visitor.VisitTurn(this);
 
-    public void Execute(Player p)
+    public void Execute(World w)
     {
         Logger?.LogExecution(WriteHeaderTo);
-        p.Direction = p.Direction switch
+        w.Player.Direction = w.Player.Direction switch
         {
             Direction.North when Rotation is RotationDirection.Right => Direction.East,
             Direction.North when Rotation is RotationDirection.Left => Direction.West,

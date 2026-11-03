@@ -6,7 +6,7 @@ using Practical;
 
 public class RepeatTests
 {
-    private readonly Player _player = new();
+    private readonly World _world = new();
     private readonly StringWriter _writer = new();
 
     [Theory]
@@ -18,8 +18,8 @@ public class RepeatTests
         var command = Substitute.For<ICommand>();
         Repeat repeat = new Repeat(times, [command]);
         
-        repeat.Execute(_player);
-        command.Received().Execute(_player);
+        repeat.Execute(_world);
+        command.Received().Execute(_world);
     }
 
     [Fact]

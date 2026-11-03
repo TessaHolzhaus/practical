@@ -56,12 +56,12 @@ void Metrics()
 
 void ExecuteCode()
 {
-    var player = new Player();
+    World w = new World();
     foreach (var command in program)
     {
-        command.Execute(player);
+        command.Execute(w);
     }
 
     Console.WriteLine(logger.LoggedActions);
-    Console.WriteLine($"End state ({player.Position.X},{player.Position.Y}) facing {player.Direction}");
+    Console.WriteLine($"End state ({w.Player.Position.X},{w.Player.Position.Y}) facing {w.Player.Direction}");
 }

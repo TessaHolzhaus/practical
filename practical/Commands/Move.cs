@@ -28,19 +28,19 @@ public class Move : ICommand, ICommandParser<Move>
     public void Accept(ProgramVisitor visitor) 
         => visitor.VisitMove(this);
 
-    public void Execute(Player p)
+    public void Execute(World w)
     {
         Logger?.LogExecution(WriteHeaderTo);
-        switch(p.Direction)
+        switch(w.Player.Direction)
         {
            case Direction.North:
-               p.Position += new Vector2(0, Distance); break;
+               w.Player.Position += new Vector2(0, Distance); break;
            case Direction.East:
-               p.Position += new Vector2(Distance, 0); break;
+               w.Player.Position += new Vector2(Distance, 0); break;
            case Direction.South:
-               p.Position -= new Vector2(0, Distance); break;
+               w.Player.Position -= new Vector2(0, Distance); break;
            case Direction.West:
-               p.Position -= new Vector2(Distance, 0); break;
+               w.Player.Position -= new Vector2(Distance, 0); break;
         }
     }
     

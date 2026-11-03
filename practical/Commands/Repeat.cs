@@ -25,21 +25,20 @@ public class Repeat : ICommand, ICommandParser<Repeat>
         {
             throw new ArgumentException("Repeat not valid");
         }
-
         return new Repeat(times);
     }
 
     public void Accept(ProgramVisitor visitor)
         => visitor.VisitRepeat(this);
 
-    public void Execute(Player p)
+    public void Execute(World w)
     {
         if (!Commands.Any()) return;
         for (int i = 0; i < Times; i++)
         {
             foreach (ICommand command in Commands)
             {
-                command.Execute(p);
+                command.Execute(w);
             }
         }
     }

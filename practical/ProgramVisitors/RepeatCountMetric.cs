@@ -14,4 +14,9 @@ public class RepeatCountMetric : ProgramVisitor
         RepeatCount++;
         Visit(repeat.Commands);
     }
+    public override void VisitRepeatUntil(RepeatUntil repeatUntil) //TODO: Implement
+    {
+        RepeatCount++;
+        Visit(repeatUntil.Commands);
+    }
 }

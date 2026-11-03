@@ -28,4 +28,10 @@ public class NestedCountMetric : ProgramVisitor
         ExitScope();
     }
 
+    public override void VisitRepeatUntil(RepeatUntil repeatUntil) //TODO: Implement
+    {
+        EnterScope();
+        Visit(repeatUntil.Commands);
+        ExitScope();
+    }
 }

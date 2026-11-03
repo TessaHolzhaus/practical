@@ -7,7 +7,7 @@ using Practical.Commands;
 using Practical;
 public class MoveTests
 {
-    private readonly Player _player = new();
+    private readonly World _world = new();
     private readonly StringWriter _writer = new();
 
     [Theory]
@@ -17,10 +17,10 @@ public class MoveTests
     [InlineData(0)]
     public void ExecuteMove_DirectionNorth_MovePlayer(int moveDist)
     {
-        _player.Direction = Direction.North;
+        _world.Player.Direction = Direction.North;
         Move move = new Move(moveDist);
-        move.Execute(_player);
-        Assert.Equal(new Vector2(0, moveDist), _player.Position);
+        move.Execute(_world);
+        Assert.Equal(new Vector2(0, moveDist), _world.Player.Position);
     }
     
     [Theory]
@@ -30,10 +30,10 @@ public class MoveTests
     [InlineData(0)]
     public void ExecuteMove_DirectionEast_MovePlayer(int moveDist)
     {
-        _player.Direction = Direction.East;
+        _world.Player.Direction = Direction.East;
         Move move = new Move(moveDist);
-        move.Execute(_player);
-        Assert.Equal(new Vector2(moveDist, 0), _player.Position);
+        move.Execute(_world);
+        Assert.Equal(new Vector2(moveDist, 0), _world.Player.Position);
     }
     
     [Theory]
@@ -43,10 +43,10 @@ public class MoveTests
     [InlineData(0)]
     public void ExecuteMove_DirectionSouth_MovePlayer(int moveDist)
     {
-        _player.Direction = Direction.South;
+        _world.Player.Direction = Direction.South;
         Move move = new Move(moveDist);
-        move.Execute(_player);
-        Assert.Equal(new Vector2(0, -moveDist), _player.Position);
+        move.Execute(_world);
+        Assert.Equal(new Vector2(0, -moveDist), _world.Player.Position);
     }
     
     [Theory]
@@ -56,10 +56,10 @@ public class MoveTests
     [InlineData(0)]
     public void ExecuteMove_DirectionWest_MovePlayer(int moveDist)
     {
-        _player.Direction = Direction.West;
+        _world.Player.Direction = Direction.West;
         Move move = new Move(moveDist);
-        move.Execute(_player);
-        Assert.Equal(new Vector2(-moveDist, 0), _player.Position);
+        move.Execute(_world);
+        Assert.Equal(new Vector2(-moveDist, 0), _world.Player.Position);
     }
     
     [Fact]

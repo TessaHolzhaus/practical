@@ -9,7 +9,7 @@ using Practical;
 public class TurnTests
 {
 
-    private readonly Player _player = new();
+    private readonly World _world = new();
     private readonly StringWriter _writer = new();
 
     [Theory]
@@ -23,10 +23,10 @@ public class TurnTests
     [InlineData(RotationDirection.Right, Direction.North, Direction.East)]
     public void ExecuteTurn_East_Player(RotationDirection rotationDirection, Direction direction, Direction expected)
     {
-        _player.Direction = direction;
+        _world.Player.Direction = direction;
         Turn turn = new Turn(rotationDirection);
-        turn.Execute(_player);
-        Assert.Equal(expected, _player.Direction);
+        turn.Execute(_world);
+        Assert.Equal(expected, _world.Player.Direction);
     }
 
     [Fact]

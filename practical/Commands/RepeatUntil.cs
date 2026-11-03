@@ -5,14 +5,14 @@ using Practical.ProgramVisitors;
 namespace Practical.Commands;
 public interface ICondition
 {
-    public bool Check(Player p); //TODO: Implement grid
+    public bool Check(World w); //TODO: Implement grid
 }
 
 public class WallAhead : ICondition
 {
-    public bool Check(Player p)
+    public bool Check(World w)
     {
-        Vector2 position = p.Position + p.Direction switch
+        Vector2 position = w.Player.Position + w.Player.Direction switch
         {
             Direction.North => Vector2.UnitY,
             Direction.East => Vector2.UnitX,
@@ -20,26 +20,33 @@ public class WallAhead : ICondition
             Direction.West => -Vector2.UnitX,
             _ => throw new UnreachableException()
         };
-        return true;
+        return w.Grid[(int)position.X, (int)position.Y] != Field.Wall;
     }
 }
 
 public class GridEdge : ICondition
 {
-    public bool Check(Player p)
+    public bool Check(World w)
     {
-        throw new NotImplementedException();
+        Vector2 position = w.Player.Position + w.Player.Direction switch
+        {
+            Direction.North => Vector2.UnitY,
+            Direction.East => Vector2.UnitX,
+            Direction.South => -Vector2.UnitY,
+            Direction.West => -Vector2.UnitX,
+            _ => throw new UnreachableException()
+        };
+        return position.X >= w.Grid.GetLength(1) || position.Y >= w.Grid.GetLength(0); //Right way round?
     }
 }
+
 public class RepeatUntil : ICommand, ICommandParser<RepeatUntil>
 {
     private List<ICommand> _commands;
     public IReadOnlyCollection<ICommand> Commands;
-    internal List<ICommand> MutCommands => _commands;
-    
     public ICondition Condition { get; set; }
-    public ILogger? Logger { get; set; }
 
+    public RepeatUntil(ICondition c) : this(c, []){}
     public RepeatUntil(ICondition c, List<ICommand> commands)
     {
         Condition = c;
@@ -48,20 +55,29 @@ public class RepeatUntil : ICommand, ICommandParser<RepeatUntil>
     
     public static RepeatUntil Parse(string[] arguments, ILogger? logger = null)
     {
-        throw new NotImplementedException();
+        if (arguments is not [{ } arg1])
+            throw new ArgumentException("RepeatUntil not valid");
+
+        ICondition condition = arg1 switch
+        {
+            "WallAhead" => new WallAhead(),
+            "GridEdge" => new GridEdge(),
+            _ => throw new ArgumentException("Condition not valid")
+        };
+        return new RepeatUntil(condition);
     }
     
     public void Accept(ProgramVisitor visitor)
         => visitor.VisitRepeatUntil(this);
 
-    public void Execute(Player p)
+    public void Execute(World w)
     {
         if (!_commands.Any()) return;
         foreach (ICommand command in Commands)
         {
-            if (Condition.Check(p)) command.Execute(p);
+            if (Condition.Check(w)) command.Execute(w);
             else break;
         }
-        if (Condition.Check(p)) Execute(p);
+        if (Condition.Check(w)) Execute(w);
     }
 }

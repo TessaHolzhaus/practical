@@ -1,5 +1,4 @@
 namespace Practical;
-
 public enum Field
 {
     Empty,
@@ -9,6 +8,7 @@ public enum Field
 
 public class World
 {
+    public Player Player = new Player();
     public Field[,] Grid =
     {
         {Field.Empty, Field.Empty, Field.Wall, Field.Wall, Field.Wall},

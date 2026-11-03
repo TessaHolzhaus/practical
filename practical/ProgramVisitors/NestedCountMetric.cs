@@ -30,6 +30,8 @@ public class NestedCountMetric : ProgramVisitor
 
     public override void VisitRepeatUntil(RepeatUntil repeatUntil) //TODO: Implement
     {
-        throw new NotImplementedException();
+        EnterScope();
+        Visit(repeatUntil.Commands);
+        ExitScope();
     }
 }

@@ -38,10 +38,10 @@ public class Turn : ICommand, ICommandParser<Turn>
     public void Accept(ProgramVisitor visitor)
         => visitor.VisitTurn(this);
 
-    public void Execute(Player p)
+    public void Execute(World w)
     {
         Logger?.LogExecution(WriteHeaderTo);
-        p.Direction = p.Direction switch
+        w.Player.Direction = w.Player.Direction switch
         {
             Direction.North when Rotation is RotationDirection.Right => Direction.East,
             Direction.North when Rotation is RotationDirection.Left => Direction.West,

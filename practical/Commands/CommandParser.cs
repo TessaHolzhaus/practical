@@ -62,6 +62,8 @@ public class CommandParser(ILogger? logger = null)
             if (command is Repeat { Commands: var repeatScope })
                 EnterScope(repeatScope);
             
+            if (command is RepeatUntil { Commands: var repeatUntilScope })
+                EnterScope(repeatUntilScope);
         }
         return _programScope;
     }

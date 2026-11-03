@@ -11,10 +11,18 @@ public class World
     public Player Player = new Player();
     public Field[,] Grid =
     {
-        {Field.Empty, Field.Empty, Field.Wall, Field.Wall, Field.Wall},
+        {Field.Empty, Field.Empty, Field.Empty, Field.Empty, Field.Empty},
         {Field.Wall, Field.Empty, Field.Empty, Field.Wall, Field.Wall},
         {Field.Wall, Field.Wall, Field.Empty, Field.Wall, Field.Wall},
         {Field.Wall, Field.Wall, Field.Empty, Field.Wall, Field.Wall},
         {Field.Wall, Field.Wall, Field.Empty, Field.Empty, Field.Finish},
     };
+    // public Field[,] Grid =
+    // {
+    //     {Field.Empty, Field.Empty, Field.Wall, Field.Wall, Field.Wall},
+    //     {Field.Wall, Field.Empty, Field.Empty, Field.Wall, Field.Wall},
+    //     {Field.Wall, Field.Wall, Field.Empty, Field.Wall, Field.Wall},
+    //     {Field.Wall, Field.Wall, Field.Empty, Field.Wall, Field.Wall},
+    //     {Field.Wall, Field.Wall, Field.Empty, Field.Empty, Field.Finish},
+    // };
 }

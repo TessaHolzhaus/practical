@@ -40,6 +40,10 @@ public class CommandStreamer : ProgramVisitor
     }
     public override void VisitRepeatUntil(RepeatUntil repeatUntil) //TODO: Implement
     {
-        throw new NotImplementedException();
+        Writer.WriteIndent(Indent, _indentationLevel);
+        repeatUntil.WriteHeaderTo(Writer);
+        _indentationLevel++;
+        Visit(repeatUntil.Commands);
+        _indentationLevel--;
     }
 }

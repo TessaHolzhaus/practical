@@ -38,12 +38,19 @@ public class CommandStreamer : ProgramVisitor
         Visit(repeat.Commands);
         _indentationLevel--;
     }
-    public override void VisitRepeatUntil(RepeatUntil repeatUntil) //TODO: Implement
+    public override void VisitRepeatUntil(RepeatUntil repeatUntil)
     {
         Writer.WriteIndent(Indent, _indentationLevel);
         repeatUntil.WriteHeaderTo(Writer);
         _indentationLevel++;
         Visit(repeatUntil.Commands);
         _indentationLevel--;
+    }
+
+    public override void VisitGoTo(GoTo goTo)
+    {
+        Writer.WriteIndent(Indent, _indentationLevel);
+        goTo.WriteHeaderTo(Writer);
+        Writer.WriteLine();
     }
 }

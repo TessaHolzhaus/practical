@@ -22,4 +22,7 @@ public class CommandCountMetric : ProgramVisitor
         CommandCount++;
         Visit(repeatUntil.Commands);
     }
+
+    public override void VisitGoTo(GoTo goTo)
+        => CommandCount++;
 }

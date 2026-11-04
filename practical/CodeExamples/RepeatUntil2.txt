@@ -10,4 +10,3 @@ RepeatUntil GridEdge
 Turn left
 RepeatUntil GridEdge
     Move 1
-Move 3

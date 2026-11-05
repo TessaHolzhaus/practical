@@ -20,7 +20,7 @@ public class GoTo : ICommand, ICommandParser<GoTo>
     {
         if (arguments is not [{ } arg1])
             throw new ArgumentException("GoTo not valid");
-        return new GoTo(ParseVector(arg1));
+        return new GoTo(ParseVector(arg1)) { Logger = logger };
     }
 
     private static Vector2 ParseVector(string args)
@@ -42,10 +42,11 @@ public class GoTo : ICommand, ICommandParser<GoTo>
         w.Player.Position = Coords;
     }
 
+    private void WriteCoord(TextWriter writer) => writer.Write($"({Coords.X},{Coords.Y})");
     public void WriteHeaderTo(TextWriter writer)
     {
         writer.Write(Prefix);
         writer.WriteSpace();
-        writer.Write(Coords.ToString());
+        WriteCoord(writer);
     }
 }

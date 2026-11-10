@@ -9,7 +9,7 @@ using Practical;
 public class TurnTests
 {
 
-    private readonly World _world = new();
+    private readonly World _world = new(new Field[,]{});
     private readonly StringWriter _writer = new();
 
     [Theory]

@@ -6,7 +6,7 @@ using Practical;
 
 public class RepeatTests
 {
-    private readonly World _world = new();
+    private readonly World _world = new(new Field[,]{});
     private readonly StringWriter _writer = new();
 
     [Theory]
@@ -69,6 +69,6 @@ public class RepeatTests
         Repeat repeat = new Repeat(times);
         repeat.WriteHeaderTo(_writer);
         
-        Assert.Equal($"Repeat {times} times{Environment.NewLine}", Output);
+        Assert.Equal($"Repeat {times} times", Output);
     }
 }

@@ -5,14 +5,14 @@ namespace Practical;
 
 public static class DirectionExtension
 {
-    public static Vector2 ToVector(this Direction direction)
+    public static Coord ToCoordDelta(this Direction direction)
     {
         return direction switch
         {
-            Direction.North => Vector2.UnitY,
-            Direction.East => Vector2.UnitX,
-            Direction.South => -Vector2.UnitY,
-            Direction.West => -Vector2.UnitX,
+            Direction.North => new Coord(0, 1),
+            Direction.East => new Coord(1, 0),
+            Direction.South => new Coord(0, -1),
+            Direction.West => new Coord(-1, 0),
             _ => throw new UnreachableException()
         };
     }

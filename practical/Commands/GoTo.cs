@@ -6,10 +6,10 @@ namespace Practical.Commands;
 
 public class GoTo : ICommand, ICommandParser<GoTo>
 {
-    public Vector2 Coords { get; set; }
+    public Coord Coords { get; set; }
     public ILogger? Logger { get; set; }
     
-    public GoTo(Vector2 coords)
+    public GoTo(Coord coords)
     {
         Coords = coords;
     }
@@ -20,16 +20,16 @@ public class GoTo : ICommand, ICommandParser<GoTo>
     {
         if (arguments is not [{ } arg1])
             throw new ArgumentException("GoTo not valid");
-        return new GoTo(ParseVector(arg1)) { Logger = logger };
+        return new GoTo(ParseCoord(arg1)) { Logger = logger };
     }
 
-    private static Vector2 ParseVector(string args)
+    private static Coord ParseCoord(string args)
     {
         string[] values = args.Trim('(', ')').Split(',');
 
         if (!int.TryParse(values[0], out int x) || !int.TryParse(values[1], out int y))
             throw new ArgumentException("GoTo not valid");
-        return new Vector2(x, y);
+        return new Coord(x, y);
     }
     public void Accept(ProgramVisitor visitor)
         => visitor.VisitGoTo(this);

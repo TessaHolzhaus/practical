@@ -30,11 +30,11 @@ public class Move : ICommand, ICommandParser<Move>
     public void Execute(World w)
     {
         Logger?.LogExecution(WriteHeaderTo);
-        Vector2 nextPosition = w.Player.Position;
+        Coord nextPosition = w.Player.Position;
         for (int i = 0; i < Distance; i++)
         {
-            nextPosition += w.Player.Direction.ToVector();
-            if (!w.CanMoveTo(nextPosition))
+            nextPosition += w.Player.Direction.ToCoordDelta();
+            if (!w.CanMoveTo(nextPosition)) // TODO: this only checks the final position. Shouldn't it move in steps??
                 throw new Exception($"Cannot move to: {(nextPosition.X, nextPosition.Y)}");
         }
         w.Player.Position = nextPosition;

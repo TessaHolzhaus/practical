@@ -58,7 +58,15 @@ void Metrics()
 
 void ExecuteCode()
 {
-    World w = new World();
+    Field[,] grid = {
+        {Field.Empty, Field.Empty, Field.Wall, Field.Wall, Field.Wall},
+        {Field.Wall, Field.Empty, Field.Empty, Field.Wall, Field.Wall},
+        {Field.Wall, Field.Wall, Field.Empty, Field.Wall, Field.Wall},
+        {Field.Wall, Field.Wall, Field.Empty, Field.Wall, Field.Wall},
+        {Field.Wall, Field.Wall, Field.Empty, Field.Empty, Field.Finish},
+    };
+    
+    World w = new World(grid);
     foreach (var command in program)
     {
         command.Execute(w);

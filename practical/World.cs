@@ -1,7 +1,5 @@
-using System.Diagnostics;
-using System.Numerics;
-
 namespace Practical;
+
 public enum Field
 {
     Empty,
@@ -11,17 +9,16 @@ public enum Field
 
 public class World
 {
-    public Player Player = new();
-    public Field[,] Grid =
-    {
-        {Field.Empty, Field.Empty, Field.Wall, Field.Wall, Field.Wall},
-        {Field.Wall, Field.Empty, Field.Empty, Field.Wall, Field.Wall},
-        {Field.Wall, Field.Wall, Field.Empty, Field.Wall, Field.Wall},
-        {Field.Wall, Field.Wall, Field.Empty, Field.Wall, Field.Wall},
-        {Field.Wall, Field.Wall, Field.Empty, Field.Empty, Field.Finish},
-    };
+    public Player Player;
+    public Field[,] Grid;
 
-    public bool IsWithinBounds(Vector2 position)
+    public World(Field[,] grid)
+    {
+        Player = new Player();
+        Grid = grid;
+    }
+
+    public bool IsWithinBounds(Coord position)
     {
        return position.X >= 0 &&
               position.X < Grid.GetLength(1) && 
@@ -29,13 +26,13 @@ public class World
               position.Y > -Grid.GetLength(0);
     }
 
-    public bool IsWalkable(Vector2 position)
+    public bool IsWalkable(Coord position)
     {
         if (!IsWithinBounds(position)) return false;
         return Grid[Math.Abs((int)position.Y), (int)position.X] != Field.Wall;
     }
 
-    public bool CanMoveTo(Vector2 position)
+    public bool CanMoveTo(Coord position)
     {
         return IsWalkable(position);
     }

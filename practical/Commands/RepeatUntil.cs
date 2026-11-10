@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using System.Numerics;
 using Practical.ProgramVisitors;
 using Practical.Writing;
@@ -13,7 +12,7 @@ public class WallAhead : ICondition
 {
     public bool Check(World w)
     {
-        Vector2 nextPosition = w.Player.Position + w.Player.Direction.ToVector();
+        Coord nextPosition = w.Player.Position + w.Player.Direction.ToCoordDelta();
         return w.IsWalkable(nextPosition);
     }
 }
@@ -22,7 +21,7 @@ public class GridEdge : ICondition
 {
     public bool Check(World w)
     {
-        Vector2 nextPosition = w.Player.Position + w.Player.Direction.ToVector();
+        Coord nextPosition = w.Player.Position + w.Player.Direction.ToCoordDelta();
         return w.IsWithinBounds(nextPosition);
     }
 }

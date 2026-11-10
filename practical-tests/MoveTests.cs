@@ -5,10 +5,12 @@ using Practical.ProgramVisitors;
 namespace PracticalTests;
 using Practical.Commands;
 using Practical;
+
 public class MoveTests
 {
-    private readonly World _world = new();
-    private readonly StringWriter _writer = new();
+    private readonly World _world = new(new Field[,] {});
+
+private readonly StringWriter _writer = new();
 
     [Theory]
     [InlineData(10)]
@@ -20,7 +22,7 @@ public class MoveTests
         _world.Player.Direction = Direction.North;
         Move move = new Move(moveDist);
         move.Execute(_world);
-        Assert.Equal(new Vector2(0, moveDist), _world.Player.Position);
+        Assert.Equal(new Coord(0, moveDist), _world.Player.Position);
     }
     
     [Theory]
@@ -33,7 +35,7 @@ public class MoveTests
         _world.Player.Direction = Direction.East;
         Move move = new Move(moveDist);
         move.Execute(_world);
-        Assert.Equal(new Vector2(moveDist, 0), _world.Player.Position);
+        Assert.Equal(new Coord(moveDist, 0), _world.Player.Position);
     }
     
     [Theory]
@@ -46,7 +48,7 @@ public class MoveTests
         _world.Player.Direction = Direction.South;
         Move move = new Move(moveDist);
         move.Execute(_world);
-        Assert.Equal(new Vector2(0, -moveDist), _world.Player.Position);
+        Assert.Equal(new Coord(0, -moveDist), _world.Player.Position);
     }
     
     [Theory]
@@ -59,7 +61,7 @@ public class MoveTests
         _world.Player.Direction = Direction.West;
         Move move = new Move(moveDist);
         move.Execute(_world);
-        Assert.Equal(new Vector2(-moveDist, 0), _world.Player.Position);
+        Assert.Equal(new Coord(-moveDist, 0), _world.Player.Position);
     }
     
     [Fact]

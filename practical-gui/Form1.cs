@@ -1,0 +1,94 @@
+using System.Text;
+using Practical.Commands;
+using Practical.ProgramVisitors;
+
+namespace practical_gui;
+
+public partial class Form1 : Form
+{
+    public Form1()
+    {
+        InitializeComponent();
+        
+        foreach (ToolStripMenuItem topItem in menuStrip1.Items)
+        {
+            if (topItem.DropDown is ToolStripDropDownMenu dropDown)
+            {
+                dropDown.ShowImageMargin = false;
+            }
+        }
+    }
+
+    private void basicToolStripMenuItem_Click(object sender, EventArgs e) 
+        => LoadExample("basic.txt");
+
+    private void advancedToolStripMenuItem_Click(object sender, EventArgs e)
+        => LoadExample("advanced.txt");
+
+    private void expertToolStripMenuItem_Click(object sender, EventArgs e)
+        => LoadExample("expert.txt");
+
+    private void fromFileToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        using var dialog = new OpenFileDialog
+        {
+            Title = "Select a Program File",
+            Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*"
+        };
+
+        if (dialog.ShowDialog() is DialogResult.OK)
+        {
+            LoadProgramFile(dialog.FileName);
+        }
+    }
+    
+    private const string CodeExamplesPath = "../../../../practical/CodeExamples";
+    private void LoadExample(string fileName)
+    {
+        var fullPath = Path.Combine(CodeExamplesPath, fileName);
+        LoadProgramFile(fullPath);
+    }
+
+    private void LoadProgramFile(string filePath)
+    {
+        try
+        {
+            if (!File.Exists(filePath))
+            {
+                MessageBox.Show($"File not found:\n{Path.GetFullPath(filePath)}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            ProgramTextBox.Text = File.ReadAllText(filePath);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Could not read file:\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+    }
+
+    private void MetricsButton_Click(object sender, EventArgs e)
+    {
+        using TextReader reader = new StringReader(ProgramTextBox.Text);
+        var program = new CommandParser().CommandParse(reader);
+        OutputTextBox.Text = CreateMetrics(program);
+    }
+
+    private static string CreateMetrics(List<ICommand> program)
+    {
+        CommandCountMetric ccm = new();
+        ccm.Visit(program);
+        NestedCountMetric ncm = new();
+        ncm.Visit(program);
+        RepeatCountMetric rcm = new();
+        rcm.Visit(program);
+        
+        static string FormatMetric(string label, int value) => $"{label,-20}{value}";    
+        
+        var formatedMetrics = new StringBuilder();
+        formatedMetrics.AppendLine(FormatMetric("Number of commands:", ccm.CommandCount));
+        formatedMetrics.AppendLine(FormatMetric("Max Nesting:", ncm.MaxNesting));
+        formatedMetrics.AppendLine(FormatMetric("Number of repeats:", rcm.RepeatCount));
+        return formatedMetrics.ToString();
+    }
+}

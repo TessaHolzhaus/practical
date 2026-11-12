@@ -6,6 +6,8 @@ namespace practical_gui;
 
 public partial class Form1 : Form
 {
+    private WorldControl _worldControl;
+    
     public Form1()
     {
         InitializeComponent();
@@ -17,6 +19,10 @@ public partial class Form1 : Form
                 dropDown.ShowImageMargin = false;
             }
         }
+
+        _worldControl = new();
+        _worldControl.Dock = DockStyle.Fill;
+        splitContainer1.Panel2.Controls.Add(_worldControl);
     }
 
     private void basicToolStripMenuItem_Click(object sender, EventArgs e) 

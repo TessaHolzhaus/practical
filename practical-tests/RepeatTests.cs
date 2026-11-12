@@ -6,7 +6,7 @@ using Practical;
 
 public class RepeatTests
 {
-    private readonly World _world = new(new Field[,]{});
+    private readonly World _world = new(new Grid(new Field[,]{}));
     private readonly StringWriter _writer = new();
 
     [Theory]

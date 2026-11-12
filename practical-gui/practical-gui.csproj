@@ -13,4 +13,10 @@
       <ProjectReference Include="..\practical\practical.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Update="WorldControl.cs">
+        <SubType>UserControl</SubType>
+      </Compile>
+    </ItemGroup>
+
 </Project>

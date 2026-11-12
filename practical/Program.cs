@@ -58,13 +58,13 @@ void Metrics()
 
 void ExecuteCode()
 {
-    Field[,] grid = {
+    var grid = new Grid(new [,]{
         {Field.Empty, Field.Empty, Field.Wall, Field.Wall, Field.Wall},
         {Field.Wall, Field.Empty, Field.Empty, Field.Wall, Field.Wall},
         {Field.Wall, Field.Wall, Field.Empty, Field.Wall, Field.Wall},
         {Field.Wall, Field.Wall, Field.Empty, Field.Wall, Field.Wall},
         {Field.Wall, Field.Wall, Field.Empty, Field.Empty, Field.Finish},
-    };
+    });
     
     World w = new World(grid);
     foreach (var command in program)

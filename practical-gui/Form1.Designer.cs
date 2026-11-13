@@ -38,7 +38,7 @@ partial class Form1
         MetricsButton = new System.Windows.Forms.Button();
         ProgramTextBox = new System.Windows.Forms.TextBox();
         OutputTextBox = new System.Windows.Forms.TextBox();
-        menuStrip1 = new System.Windows.Forms.MenuStrip();
+        menuStrip = new System.Windows.Forms.MenuStrip();
         loadProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         basicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         advancedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,7 +51,7 @@ partial class Form1
         splitContainer1.SuspendLayout();
         tableLayoutPanel1.SuspendLayout();
         flowLayoutPanel2.SuspendLayout();
-        menuStrip1.SuspendLayout();
+        menuStrip.SuspendLayout();
         SuspendLayout();
         // 
         // splitContainer1
@@ -114,6 +114,7 @@ partial class Form1
         RunButton.TabIndex = 5;
         RunButton.Text = "Run";
         RunButton.UseVisualStyleBackColor = false;
+        RunButton.Click += RunButton_Click;
         // 
         // MetricsButton
         // 
@@ -150,15 +151,15 @@ partial class Form1
         OutputTextBox.Size = new System.Drawing.Size(396, 131);
         OutputTextBox.TabIndex = 11;
         // 
-        // menuStrip1
+        // menuStrip
         // 
-        menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
-        menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { loadProgramToolStripMenuItem });
-        menuStrip1.Location = new System.Drawing.Point(0, 0);
-        menuStrip1.Name = "menuStrip1";
-        menuStrip1.Size = new System.Drawing.Size(1206, 33);
-        menuStrip1.TabIndex = 10;
-        menuStrip1.Text = "menuStrip1";
+        menuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
+        menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { loadProgramToolStripMenuItem });
+        menuStrip.Location = new System.Drawing.Point(0, 0);
+        menuStrip.Name = "menuStrip";
+        menuStrip.Size = new System.Drawing.Size(1206, 33);
+        menuStrip.TabIndex = 10;
+        menuStrip.Text = "menuStrip1";
         // 
         // loadProgramToolStripMenuItem
         // 
@@ -209,7 +210,7 @@ partial class Form1
         AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         ClientSize = new System.Drawing.Size(1206, 578);
         Controls.Add(splitContainer1);
-        Controls.Add(menuStrip1);
+        Controls.Add(menuStrip);
         Text = "Form1";
         ((System.ComponentModel.ISupportInitialize)bindingSource1).EndInit();
         splitContainer1.Panel1.ResumeLayout(false);
@@ -219,8 +220,8 @@ partial class Form1
         tableLayoutPanel1.PerformLayout();
         flowLayoutPanel2.ResumeLayout(false);
         flowLayoutPanel2.PerformLayout();
-        menuStrip1.ResumeLayout(false);
-        menuStrip1.PerformLayout();
+        menuStrip.ResumeLayout(false);
+        menuStrip.PerformLayout();
         ResumeLayout(false);
         PerformLayout();
     }
@@ -233,7 +234,7 @@ partial class Form1
     private System.Windows.Forms.ToolStripMenuItem expertToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem fromFileToolStripMenuItem;
 
-    private System.Windows.Forms.MenuStrip menuStrip1;
+    private System.Windows.Forms.MenuStrip menuStrip;
 
     private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;

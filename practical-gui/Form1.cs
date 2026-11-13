@@ -6,13 +6,13 @@ namespace practical_gui;
 
 public partial class Form1 : Form
 {
-    private WorldControl _worldControl;
+    private readonly WorldControl _worldControl;
     
     public Form1()
     {
         InitializeComponent();
         
-        foreach (ToolStripMenuItem topItem in menuStrip1.Items)
+        foreach (ToolStripMenuItem topItem in menuStrip.Items)
         {
             if (topItem.DropDown is ToolStripDropDownMenu dropDown)
             {
@@ -20,8 +20,12 @@ public partial class Form1 : Form
             }
         }
 
-        _worldControl = new();
-        _worldControl.Dock = DockStyle.Fill;
+        _worldControl = new()
+        {
+            CellRenderer = new DefaultCellRenderer(),
+            PlayerViewFactory = PlayerPathView.Factory,
+            Dock = DockStyle.Fill
+        };
         splitContainer1.Panel2.Controls.Add(_worldControl);
     }
 
@@ -73,10 +77,16 @@ public partial class Form1 : Form
         }
     }
 
+    public List<ICommand> GetProgram()
+    {
+        using TextReader reader = new StringReader(ProgramTextBox.Text);
+        return new CommandParser().CommandParse(reader);
+    }
+
     private void MetricsButton_Click(object sender, EventArgs e)
     {
         using TextReader reader = new StringReader(ProgramTextBox.Text);
-        var program = new CommandParser().CommandParse(reader);
+        var program = GetProgram();
         OutputTextBox.Text = CreateMetrics(program);
     }
 
@@ -96,5 +106,27 @@ public partial class Form1 : Form
         formatedMetrics.AppendLine(FormatMetric("Max Nesting:", ncm.MaxNesting));
         formatedMetrics.AppendLine(FormatMetric("Number of repeats:", rcm.RepeatCount));
         return formatedMetrics.ToString();
+    }
+
+    private void RunButton_Click(object sender, EventArgs e)
+    {
+        var program = GetProgram();
+
+        var world = _worldControl.World;
+        if (world is null) return;
+        
+        foreach (var command in program)
+        {
+            command.Execute(world);
+        }
+
+        // Console.WriteLine(logger.LoggedActions);
+        OutputTextBox.Text = new StringBuilder().Append("End state (")
+            .Append(world.Player.Position.X)
+            .Append(",")
+            .Append(world.Player.Position.Y)
+            .Append(") facing ")
+            .Append(world.Player.Direction)
+            .ToString();
     }
 }

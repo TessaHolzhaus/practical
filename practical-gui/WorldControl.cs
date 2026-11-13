@@ -18,13 +18,14 @@ public class WorldControl : UserControl
     }
     
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-    public required ICellRenderer CellRenderer { get; set; }
+    public ICellRenderer CellRenderer { get; set; }
     
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-    public required IPlayerViewFactory PlayerViewFactory { get; set; }
+    public IPlayerViewFactory PlayerViewFactory { get; set; }
 
+    private IPlayerView _playerView;
     
-    public WorldControl()
+    public WorldControl(IPlayerViewFactory playerViewFactory, ICellRenderer cellRenderer)
     {
         // TODO: inject world instead of creating it here (could also remove it and use property initialization, but that would call Invalidate())
         World = new World(new Grid(new [,]{
@@ -41,6 +42,12 @@ public class WorldControl : UserControl
             ControlStyles.OptimizedDoubleBuffer |
             ControlStyles.ResizeRedraw,
             true);
+        
+        CellRenderer = cellRenderer;
+        PlayerViewFactory = playerViewFactory;
+        
+        _playerView = PlayerViewFactory
+            .Create(World.Player, Invalidate);
     }
     
     // TODO: refactor the drawing of the cells
@@ -78,9 +85,7 @@ public class WorldControl : UserControl
             y += cellSize;
         }
         
-        PlayerViewFactory
-            .Create(World.Player, () => Invalidate())
-            .Render(g, new RectangleF(offsetX, offsetY, cellSize, cellSize));
+        _playerView.Render(g, new RectangleF(offsetX, offsetY, cellSize, cellSize));
     }
 }
 
@@ -125,14 +130,31 @@ public class PlayerPathView : IPlayerView
     public PlayerPathView(Player player, Action onChange)
     {
         _player = player;
-        _path = new PlayerPath(onChange);
+        _path = new PlayerPath(player.Position, onChange);
         _player.Subject.Subscribe(_path);
     }
 
     public void Render(Graphics g, RectangleF bounds)
     {
-        // TODO: draw the path and then the player
-        // TODO: player y should not need to be flipped (see another TODO for the same problem)
+        var steps = _path.Steps.Select(step => 
+            new PointF(bounds.X + (bounds.Width * (step.X + 0.5f)), bounds.Y + (bounds.Height * (-step.Y + 0.5f)))
+        ).ToArray();
+        
+        if (steps.Length >= 2)
+            g.DrawLines(Pens.Red, steps);
+        
+        // foreach (var step in _path.Steps)
+        // {
+        //     Console.WriteLine($"Drawing step {step}");
+        //     g.FillRectangle(
+        //         Brushes.Red,
+        //         bounds.X + (bounds.Width * step.X),
+        //         bounds.Y + (bounds.Height * step.Y),
+        //         bounds.Width,
+        //         bounds.Height
+        //     );
+        // }
+        
         bounds.Offset(bounds.Width * _player.Position.X, bounds.Height * -_player.Position.Y);
         var state = g.Save();
 
@@ -169,9 +191,9 @@ public class PlayerPathView : IPlayerView
         }
     }
 
-    private class PlayerPath(Action OnChange) : IPlayerObserver
+    private class PlayerPath(Coord startingAt, Action OnChange) : IPlayerObserver
     {
-        public List<Coord> Steps { get; set; } = [];
+        public List<Coord> Steps { get; set; } = [startingAt]; // TODO: what about the initial position? That will not be in the list.
 
         public void OnRotate(Direction direction)
         {

@@ -20,10 +20,8 @@ public partial class Form1 : Form
             }
         }
 
-        _worldControl = new()
+        _worldControl = new(PlayerPathView.Factory, new DefaultCellRenderer())
         {
-            CellRenderer = new DefaultCellRenderer(),
-            PlayerViewFactory = PlayerPathView.Factory,
             Dock = DockStyle.Fill
         };
         splitContainer1.Panel2.Controls.Add(_worldControl);

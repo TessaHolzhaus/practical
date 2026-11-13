@@ -42,7 +42,7 @@ public class World
 
 public class Grid(Field[,] grid)
 {
-    public Field this[int x, int y] => grid[y, x];
+    public Field this[int x, int y] => grid[x, y];
     
     public int Width => grid.GetLength(1);
     public int Height => grid.GetLength(0);

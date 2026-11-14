@@ -34,7 +34,7 @@ public class Move : ICommand, ICommandParser<Move>
         for (int i = 0; i < Distance; i++)
         {
             nextPosition += w.Player.Direction.ToCoordDelta();
-            if (!w.CanMoveTo(nextPosition)) // TODO: this only checks the final position. Shouldn't it move in steps??
+            if (!w.CanMoveTo(nextPosition))
                 throw new Exception($"Cannot move to: {(nextPosition.X, nextPosition.Y)}");
         }
         w.Player.Position = nextPosition;

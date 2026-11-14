@@ -59,13 +59,14 @@ public class RepeatUntil : ICommand, ICommandParser<RepeatUntil>
 
     public void Execute(World w)
     {
-        if (!Commands.Any()) return;
-        foreach (ICommand command in Commands)
+        while (Commands.Any() && Condition.Check(w))
         {
-            if (!Condition.Check(w)) break;
-            command.Execute(w);
+            foreach (ICommand command in Commands)
+            {
+                if (!Condition.Check(w)) return;
+                command.Execute(w);
+            }
         }
-        if (Condition.Check(w)) Execute(w);
     }
 
     public void WriteHeaderTo(TextWriter writer)

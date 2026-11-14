@@ -16,7 +16,6 @@ public enum Direction{
     West
 }
 
-// instead of Vector2 that uses float
 public readonly record struct Coord(int X, int Y)
 {
     public static Coord operator +(Coord a, Coord b) => new(a.X + b.X, a.Y + b.Y);
@@ -24,7 +23,6 @@ public readonly record struct Coord(int X, int Y)
     public static Coord operator *(int scalar, Coord a) => new(a.X * scalar, a.Y * scalar);
     public static Coord operator *(Coord a, int scalar) => scalar * a;
 }
-
 
 public class Player
 {

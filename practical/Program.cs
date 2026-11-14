@@ -57,7 +57,7 @@ void Metrics()
 }
 
 void ExecuteCode()
-{
+{ //TODO: Fix grid flip? Empty gridcoords are NOT the same in the UI
     var grid = new Grid(new [,]{
         {Field.Empty, Field.Empty, Field.Wall, Field.Wall, Field.Wall},
         {Field.Wall, Field.Empty, Field.Empty, Field.Wall, Field.Wall},

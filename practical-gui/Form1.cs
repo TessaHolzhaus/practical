@@ -1,4 +1,5 @@
 using System.Text;
+using Practical;
 using Practical.Commands;
 using Practical.ProgramVisitors;
 
@@ -109,9 +110,12 @@ public partial class Form1 : Form
     private void RunButton_Click(object sender, EventArgs e)
     {
         var program = GetProgram();
+        var world = _worldControl.World; //TODO: Reset player position and direction on click. 
 
-        var world = _worldControl.World;
         if (world is null) return;
+        
+        world.Player.Direction = Direction.East;
+        world.Player.Position = new Coord(0, 0);
         
         foreach (var command in program)
         {

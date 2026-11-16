@@ -4,7 +4,7 @@ namespace Practical.ProgramVisitors;
 
 public abstract class ProgramVisitor
 {
-    public void Visit(params IReadOnlyCollection<ICommand> commands)
+    public virtual void Visit(params IReadOnlyCollection<ICommand> commands)
     {
         foreach (var command in commands)
             command.Accept(this);

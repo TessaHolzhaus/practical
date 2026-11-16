@@ -34,9 +34,20 @@
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AToolStripMenuItem_002Ecs_002Fl_003AC_0021_003FUsers_003FTessa_003FAppData_003FRoaming_003FJetBrains_003FRider2026_002E1_003Fresharper_002Dhost_003FDecompilerCache_003Fdecompiler_003F892abbbfd26f48deb1857ea2b8691b71d14728_003F06_003F3a68aed5_003FToolStripMenuItem_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AToolStrip_002Ecs_002Fl_003AC_0021_003FUsers_003FTessa_003FAppData_003FRoaming_003FJetBrains_003FRider2026_002E1_003Fresharper_002Dhost_003FDecompilerCache_003Fdecompiler_003F892abbbfd26f48deb1857ea2b8691b71d14728_003F3c_003Fcb0bf0b7_003FToolStrip_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AVector_005F1_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002E_002E_003F_002E_002E_003F_002E_002E_003F_002E_002E_003F_002E_002E_003F_002E_002E_003F_002E_002E_003F_002E_002E_003FAppData_003FRoaming_003FJetBrains_003FRider2026_002E2_003Fresharper_002Dhost_003FSourcesCache_003F512c07e71314e149661d5edf86fb11fa7d0737832496882904c3c464b6ead_003FVector_005F1_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e86454b7_002D83f0_002D4eb3_002D9689_002Dae3d483f4bb7/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ExecuteMove_DirectionNorth_MovePlayer" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e86454b7_002D83f0_002D4eb3_002D9689_002Dae3d483f4bb7/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="ExecuteMove_DirectionNorth_MovePlayer" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::03CAF706-3784-47F5-8691-101F6965B8D6::net10.0::PracticalTests.MoveTests.ExecuteMove_DirectionNorth_MovePlayer&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::03CAF706-3784-47F5-8691-101F6965B8D6::net10.0::PracticalTests.CommandCountMetricTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::03CAF706-3784-47F5-8691-101F6965B8D6::net10.0::PracticalTests.CommandParserTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::03CAF706-3784-47F5-8691-101F6965B8D6::net10.0::PracticalTests.CommandStreamerTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::03CAF706-3784-47F5-8691-101F6965B8D6::net10.0::PracticalTests.GoToTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::03CAF706-3784-47F5-8691-101F6965B8D6::net10.0::PracticalTests.MoveTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::03CAF706-3784-47F5-8691-101F6965B8D6::net10.0::PracticalTests.NestedCountMetricTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::03CAF706-3784-47F5-8691-101F6965B8D6::net10.0::PracticalTests.ProgramVisitorTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::03CAF706-3784-47F5-8691-101F6965B8D6::net10.0::PracticalTests.RepeatCountMetricTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::03CAF706-3784-47F5-8691-101F6965B8D6::net10.0::PracticalTests.RepeatTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::03CAF706-3784-47F5-8691-101F6965B8D6::net10.0::PracticalTests.RepeatUntilTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::03CAF706-3784-47F5-8691-101F6965B8D6::net10.0::PracticalTests.TurnTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	
@@ -44,7 +55,7 @@
 	
 	
 	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ecc560cb_002Dc177_002D4fe7_002Db062_002De01464dce577/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from &amp;lt;practical-tests&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ecc560cb_002Dc177_002D4fe7_002Db062_002De01464dce577/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from &amp;lt;practical-tests&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::03CAF706-3784-47F5-8691-101F6965B8D6::net10.0::PracticalTests.RepeatUntilTests&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::03CAF706-3784-47F5-8691-101F6965B8D6::net10.0::PracticalTests.GoToTests.ExecuteGoTo&lt;/TestId&gt;&#xD;

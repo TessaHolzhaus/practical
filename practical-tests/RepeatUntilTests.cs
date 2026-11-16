@@ -9,36 +9,11 @@ public class RepeatUntilTests
     private readonly World _world = new(new Grid(new Field[,] { }));
     private readonly StringWriter _writer = new();
 
-    //TODO: Create test grids
-    
-// public class RepeatUntilTestData : IEnumerable<object[]>
-// {
-//     public IEnumerator<object[]> GetEnumerator()
-//     {
-//         yield return new object[] { new WallAhead() };
-//         yield return new object[] { new GridEdge() };
-//     }
-//
-//     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-// }
-
     public static IEnumerable<object[]> Conditions =>
     [
         [new WallAhead()],
         [new GridEdge()]
     ];
-    
-    //TODO: Write test for execution. Currently an issue with how the condition is accepted
-    // [Fact] 
-    // public void ExecuteRepeatUntil_WallAhead()
-    // {
-    //     var command = Substitute.For<ICommand>();
-    //     ICondition wallAhead = new WallAhead();
-    //     RepeatUntil repeatUntil = new RepeatUntil(wallAhead, [command]);
-    //     
-    //     repeatUntil.Execute(_world);
-    //     command.Received().Execute(_world);
-    // }
 
     [Fact]
     public void AcceptRepeatUntil_CallsVisitRepeatUntil()

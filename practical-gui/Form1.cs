@@ -116,20 +116,18 @@ public partial class Form1 : Form
 
     private void RunButton_Click(object sender, EventArgs e)
     {
-        var program = GetProgram();
-        var world = _worldControl.World; //TODO: Reset player position and direction on click. 
-
-        if (world is null) return;
+        _worldControl.ResetPlayer();
         
-        world.Player.Direction = Direction.East;
-        world.Player.Position = new Coord(0, 0);
+        var program = GetProgram();
+        var world = _worldControl.World;
+        
+        if (world is null) return;
         
         foreach (var command in program)
         {
             command.Execute(world);
         }
 
-        // Console.WriteLine(logger.LoggedActions);
         OutputTextBox.Text = new StringBuilder().Append("End state (")
             .Append(world.Player.Position.X)
             .Append(",")
@@ -139,28 +137,20 @@ public partial class Form1 : Form
             .ToString();
     }
 
-    private void baseGridToolStripMenuItem_Click(object sender, EventArgs e)
+    private void LoadWorld(World world)
     {
-        _worldControl.World = World.Create();
-        _worldControl.PlayerView = new PlayerPathView(_worldControl.World.Player, _worldControl.Invalidate);
+        _worldControl.World = world;
+        _worldControl.ResetPlayer();
     }
+    
+    private void baseGridToolStripMenuItem_Click(object sender, EventArgs e)
+        => LoadWorld(World.Create());
 
     private void grid2ToolStripMenuItem_Click(object sender, EventArgs e)
-    {
-        _worldControl.World = World.Create("Grid2.txt");
-        _worldControl.PlayerView = new PlayerPathView(_worldControl.World.Player, _worldControl.Invalidate);
-    }
+        => LoadWorld(World.Create("Grid2.txt"));
 
     private void grid3ToolStripMenuItem_Click(object sender, EventArgs e)
-    {
-        _worldControl.World = World.Create("Grid3.txt");
-        _worldControl.PlayerView = new PlayerPathView(_worldControl.World.Player, _worldControl.Invalidate);
-    }
-
-    private void ExportButton_Click(object sender, EventArgs e)
-    {
-        throw new System.NotImplementedException();
-    }
+        => LoadWorld(World.Create("Grid3.txt"));
     
     private void normalToolStripMenuItem_Click(object sender, EventArgs e)
     {

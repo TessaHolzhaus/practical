@@ -115,7 +115,7 @@ partial class Form1
         RunButton.AutoSize = true;
         RunButton.BackColor = System.Drawing.Color.FromArgb(((int)((byte)51)), ((int)((byte)166)), ((int)((byte)76)));
         RunButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-        RunButton.Font = new System.Drawing.Font("Tw Cen MT", 8F, System.Drawing.FontStyle.Bold);
+        RunButton.Font = new System.Drawing.Font("Tw Cen MT", 12F, System.Drawing.FontStyle.Bold);
         RunButton.ForeColor = System.Drawing.Color.WhiteSmoke;
         RunButton.Location = new System.Drawing.Point(3, 3);
         RunButton.Name = "RunButton";
@@ -130,7 +130,7 @@ partial class Form1
         MetricsButton.AutoSize = true;
         MetricsButton.BackColor = System.Drawing.Color.FromArgb(((int)((byte)0)), ((int)((byte)133)), ((int)((byte)252)));
         MetricsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-        MetricsButton.Font = new System.Drawing.Font("Tw Cen MT", 8F, System.Drawing.FontStyle.Bold);
+        MetricsButton.Font = new System.Drawing.Font("Tw Cen MT", 12F, System.Drawing.FontStyle.Bold);
         MetricsButton.ForeColor = System.Drawing.Color.WhiteSmoke;
         MetricsButton.Location = new System.Drawing.Point(127, 3);
         MetricsButton.Name = "MetricsButton";
@@ -152,7 +152,7 @@ partial class Form1
         // OutputTextBox
         // 
         OutputTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-        OutputTextBox.Font = new System.Drawing.Font("Consolas", 6F);
+        OutputTextBox.Font = new System.Drawing.Font("Consolas", 9F);
         OutputTextBox.Location = new System.Drawing.Point(3, 423);
         OutputTextBox.Multiline = true;
         OutputTextBox.Name = "OutputTextBox";
@@ -265,14 +265,14 @@ partial class Form1
         // normalToolStripMenuItem
         // 
         normalToolStripMenuItem.Name = "normalToolStripMenuItem";
-        normalToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+        normalToolStripMenuItem.Size = new System.Drawing.Size(173, 34);
         normalToolStripMenuItem.Text = "Normal";
         normalToolStripMenuItem.Click += normalToolStripMenuItem_Click;
         // 
         // jSONToolStripMenuItem
         // 
         jSONToolStripMenuItem.Name = "jSONToolStripMenuItem";
-        jSONToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+        jSONToolStripMenuItem.Size = new System.Drawing.Size(173, 34);
         jSONToolStripMenuItem.Text = "JSON";
         jSONToolStripMenuItem.Click += jSONToolStripMenuItem_Click;
         // 

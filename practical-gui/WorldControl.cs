@@ -40,8 +40,20 @@ public class WorldControl : UserControl
         CellRenderer = cellRenderer;
         PlayerViewFactory = playerViewFactory;
         
+        ResetPlayer();
+    }
+
+    public void ResetPlayer()
+    {
+        if (World is null) return;
+        
+        World.Player.Direction = Direction.East;
+        World.Player.Position = new Coord(0, 0);
+        
         PlayerView = PlayerViewFactory
             .Create(World.Player, Invalidate);
+        
+        Invalidate();
     }
     
     // TODO: refactor the drawing of the cells

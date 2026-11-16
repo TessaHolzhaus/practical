@@ -214,7 +214,6 @@ partial class Form1
         loadGridToolStripMenuItem.Name = "loadGridToolStripMenuItem";
         loadGridToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
         loadGridToolStripMenuItem.Text = "Load grid";
-        loadGridToolStripMenuItem.Click += loadGridToolStripMenuItem_Click;
         // 
         // baseGridToolStripMenuItem
         // 

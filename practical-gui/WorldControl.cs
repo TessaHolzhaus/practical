@@ -51,7 +51,13 @@ public class WorldControl : UserControl
         World.Player.Position = new Coord(0, 0);
         
         PlayerView = PlayerViewFactory
-            .Create(World.Player, Invalidate);
+            .Create(World.Player, () =>
+            {
+                if (World is null) return;
+                if (World.Grid[World.Player.Position.X, -World.Player.Position.Y] is Field.Finish)
+                    MessageBox.Show("Finished!", "Congratulations, you reached the finish!", MessageBoxButtons.OK);
+                Invalidate();
+            });
         
         Invalidate();
     }
@@ -149,18 +155,6 @@ public class PlayerPathView : IPlayerView
         if (steps.Length >= 2)
             g.DrawLines(Pens.Red, steps);
         
-        // foreach (var step in _path.Steps)
-        // {
-        //     Console.WriteLine($"Drawing step {step}");
-        //     g.FillRectangle(
-        //         Brushes.Red,
-        //         bounds.X + (bounds.Width * step.X),
-        //         bounds.Y + (bounds.Height * step.Y),
-        //         bounds.Width,
-        //         bounds.Height
-        //     );
-        // }
-        
         bounds.Offset(bounds.Width * _player.Position.X, bounds.Height * -_player.Position.Y);
         var state = g.Save();
 
@@ -197,19 +191,19 @@ public class PlayerPathView : IPlayerView
         }
     }
 
-    private class PlayerPath(Coord startingAt, Action OnChange) : IPlayerObserver
+    private class PlayerPath(Coord startingAt, Action onChange) : IPlayerObserver
     {
-        public List<Coord> Steps { get; set; } = [startingAt]; // TODO: what about the initial position? That will not be in the list.
+        public List<Coord> Steps { get; set; } = [startingAt];
 
         public void OnRotate(Direction direction)
         {
-            OnChange();
+            onChange();
         }
         
         public void OnMove(Coord position)
         {
             Steps.Add(position);
-            OnChange();
+            onChange();
         }
     }
 

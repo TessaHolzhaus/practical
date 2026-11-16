@@ -31,6 +31,7 @@ public class Player
         get;
         set
         {
+            if (field == value) return;
             field = value;
             _subject.Notify(observer => observer.OnRotate(value));
         }
@@ -41,6 +42,7 @@ public class Player
         get; 
         set
         {
+            if (field == value) return;
             field = value;
             _subject.Notify(observer => observer.OnMove(value));
         }

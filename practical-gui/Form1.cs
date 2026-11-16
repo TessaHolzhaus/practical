@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Text;
 using Practical;
 using Practical.Commands;
@@ -130,5 +131,51 @@ public partial class Form1 : Form
             .Append(") facing ")
             .Append(world.Player.Direction)
             .ToString();
+    }
+
+    private void baseGridToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        _worldControl.World = World.Create();
+        _worldControl.PlayerView = new PlayerPathView(_worldControl.World.Player, _worldControl.Invalidate);
+    }
+
+    private void grid2ToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        _worldControl.World = World.Create("Grid2.txt");
+        _worldControl.PlayerView = new PlayerPathView(_worldControl.World.Player, _worldControl.Invalidate);
+    }
+
+    private void grid3ToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        _worldControl.World = World.Create("Grid3.txt");
+        _worldControl.PlayerView = new PlayerPathView(_worldControl.World.Player, _worldControl.Invalidate);
+    }
+
+    private void ExportButton_Click(object sender, EventArgs e)
+    {
+        using var dialog = new SaveFileDialog
+        {
+            Title = "Choose a location",
+            Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"
+        };
+
+        if (dialog.ShowDialog() is DialogResult.OK)
+        {
+            SaveProgramFile(dialog.FileName);
+        }
+    }
+
+    private void SaveProgramFile(string filePath)
+    {
+        using var writer = new StreamWriter(filePath);
+        
+        CommandStreamer streamer = new CommandStreamer(writer);
+        
+        var program = GetProgram();
+        
+        foreach (var command in program)
+        {
+            streamer.Visit(command);
+        }
     }
 }

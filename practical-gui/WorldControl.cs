@@ -23,18 +23,12 @@ public class WorldControl : UserControl
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public IPlayerViewFactory PlayerViewFactory { get; set; }
 
-    private IPlayerView _playerView;
+    public IPlayerView PlayerView;
     
     public WorldControl(IPlayerViewFactory playerViewFactory, ICellRenderer cellRenderer)
     {
         // TODO: inject world instead of creating it here (could also remove it and use property initialization, but that would call Invalidate())
-        World = new World(new Grid(new [,]{
-            {Field.Empty, Field.Empty, Field.Wall, Field.Wall, Field.Wall},
-            {Field.Wall, Field.Empty, Field.Empty, Field.Wall, Field.Wall},
-            {Field.Wall, Field.Wall, Field.Empty, Field.Wall, Field.Wall},
-            {Field.Wall, Field.Wall, Field.Empty, Field.Wall, Field.Wall},
-            {Field.Wall, Field.Wall, Field.Empty, Field.Empty, Field.Finish},
-        }));
+        World = World.Create();
         
         SetStyle(
             ControlStyles.AllPaintingInWmPaint |
@@ -46,7 +40,7 @@ public class WorldControl : UserControl
         CellRenderer = cellRenderer;
         PlayerViewFactory = playerViewFactory;
         
-        _playerView = PlayerViewFactory
+        PlayerView = PlayerViewFactory
             .Create(World.Player, Invalidate);
     }
     
@@ -85,7 +79,7 @@ public class WorldControl : UserControl
             y += cellSize;
         }
         
-        _playerView.Render(g, new RectangleF(offsetX, offsetY, cellSize, cellSize));
+        PlayerView.Render(g, new RectangleF(offsetX, offsetY, cellSize, cellSize));
     }
 }
 

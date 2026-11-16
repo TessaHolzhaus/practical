@@ -38,6 +38,12 @@ public partial class Form1 : Form
     private void expertToolStripMenuItem_Click(object sender, EventArgs e)
         => LoadExample("expert.txt");
 
+    private void repeatUntilToolStripMenuItem_Click(object sender, EventArgs e)
+        => LoadExample("repeatUntil.txt");
+    
+    private void goToToolStripMenuItem_Click(object sender, EventArgs e)
+        => LoadExample("goTo.txt");
+
     private void fromFileToolStripMenuItem_Click(object sender, EventArgs e)
     {
         using var dialog = new OpenFileDialog

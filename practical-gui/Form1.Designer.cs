@@ -44,6 +44,8 @@ partial class Form1
         basicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         advancedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         expertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        repeatUntilToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        goToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
         fromFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         loadGridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -188,7 +190,7 @@ partial class Form1
         // loadProgramToolStripMenuItem
         // 
         loadProgramToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-        loadProgramToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { basicToolStripMenuItem, advancedToolStripMenuItem, expertToolStripMenuItem, toolStripSeparator1, fromFileToolStripMenuItem });
+        loadProgramToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { basicToolStripMenuItem, advancedToolStripMenuItem, expertToolStripMenuItem, repeatUntilToolStripMenuItem, goToToolStripMenuItem, toolStripSeparator1, fromFileToolStripMenuItem });
         loadProgramToolStripMenuItem.Name = "loadProgramToolStripMenuItem";
         loadProgramToolStripMenuItem.Size = new System.Drawing.Size(142, 29);
         loadProgramToolStripMenuItem.Text = "Load program";
@@ -214,6 +216,18 @@ partial class Form1
         expertToolStripMenuItem.Size = new System.Drawing.Size(196, 34);
         expertToolStripMenuItem.Text = "Expert";
         expertToolStripMenuItem.Click += expertToolStripMenuItem_Click;
+        // repeatUntilToolStripMenuItem
+        // 
+        repeatUntilToolStripMenuItem.Name = "repeatUntilToolStripMenuItem";
+        repeatUntilToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+        repeatUntilToolStripMenuItem.Text = "RepeatUntil";
+        repeatUntilToolStripMenuItem.Click += repeatUntilToolStripMenuItem_Click;
+        // goToToolStripMenuItem
+        // 
+        goToToolStripMenuItem.Name = "goToToolStripMenuItem";
+        goToToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+        goToToolStripMenuItem.Text = "GoTo";
+        goToToolStripMenuItem.Click += goToToolStripMenuItem_Click;
         // 
         // toolStripSeparator1
         // 
@@ -318,6 +332,8 @@ partial class Form1
     private System.Windows.Forms.ToolStripMenuItem basicToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem advancedToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem expertToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem repeatUntilToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem goToToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem fromFileToolStripMenuItem;
 
     private System.Windows.Forms.MenuStrip menuStrip;

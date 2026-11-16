@@ -4,7 +4,7 @@ using Practical.ProgramVisitors;
 
 string AskProgram()
 {
-    Console.WriteLine("What program do you want to run? (<path> | basic (1) | advanced (2) | expert (3) | RepeatUntil (4) | test (5)");
+    Console.WriteLine("What program do you want to run? (<path> | basic (1) | advanced (2) | expert (3) | RepeatUntil (4) | GoTo (5)");
     var response = Console.ReadLine();
     
     var defaultPath = "../../../CodeExamples";
@@ -13,8 +13,8 @@ string AskProgram()
         "1" => defaultPath + "/Basic.txt",
         "2" => defaultPath + "/Advanced.txt",
         "3" => defaultPath + "/Expert.txt",
-        "4" => defaultPath + "/RepeatUntil2.txt",
-        "5" => defaultPath + "/test.txt",
+        "4" => defaultPath + "/RepeatUntil.txt",
+        "5" => defaultPath + "/GoTo.txt",
         var path => File.Exists(response) ? response : AskProgram()
     };
 }

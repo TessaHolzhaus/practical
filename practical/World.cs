@@ -20,6 +20,15 @@ public class World
         Grid = grid;
     }
 
+    public static World Create(string filepath = "BaseGrid.txt")
+    {
+        const string defaultPath = "../../../../practical/Grids";
+        var fullPath = Path.Combine(defaultPath, filepath);
+
+        
+        return new(Grid.Parse(fullPath));
+    }
+
     public bool IsWithinBounds(Coord position)
     {
        return position.X >= 0 &&
@@ -46,4 +55,45 @@ public class Grid(Field[,] grid)
     
     public int Width => grid.GetLength(1);
     public int Height => grid.GetLength(0);
+
+    public static Grid Parse(string gridpath)
+    {
+        var rows = new List<Field[]>();
+
+        using (TextReader reader = new StreamReader(gridpath))
+        {
+            while (reader.ReadLine() is { } line)
+            {
+                var row = line.Select(c => c switch
+                {
+                    'o' => Field.Empty,
+                    '+' => Field.Wall,
+                    'x' => Field.Finish,
+                    _ => throw new ArgumentException("Field type doesn't exist")
+                }).ToArray();
+                
+                rows.Add(row);
+            }
+        }
+
+        if (rows.Count == 0)
+            throw new ArgumentException("Grid cannot be empty");
+        
+        int height = rows.Count;
+        int width = rows[0].Length;
+
+        if (rows.Any(row => row.Length != width))
+            throw new ArgumentException("All rows must have the same length.");
+
+        var fields = new Field [height, width];
+
+        for (int y = 0; y < height; y++)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                fields[y, x] = rows[y][x];
+            }
+        }
+        return new Grid(fields);
+    }
 }

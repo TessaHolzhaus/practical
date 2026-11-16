@@ -28,13 +28,7 @@ public class WorldControl : UserControl
     public WorldControl(IPlayerViewFactory playerViewFactory, ICellRenderer cellRenderer)
     {
         // TODO: inject world instead of creating it here (could also remove it and use property initialization, but that would call Invalidate())
-        World = new World(new Grid(new [,]{
-            {Field.Empty, Field.Empty, Field.Wall, Field.Wall, Field.Wall},
-            {Field.Wall, Field.Empty, Field.Empty, Field.Wall, Field.Wall},
-            {Field.Wall, Field.Wall, Field.Empty, Field.Wall, Field.Wall},
-            {Field.Wall, Field.Wall, Field.Empty, Field.Wall, Field.Wall},
-            {Field.Wall, Field.Wall, Field.Empty, Field.Empty, Field.Finish},
-        }));
+        World = World.Create();
         
         SetStyle(
             ControlStyles.AllPaintingInWmPaint |

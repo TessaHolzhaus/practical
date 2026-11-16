@@ -131,4 +131,22 @@ public partial class Form1 : Form
             .Append(world.Player.Direction)
             .ToString();
     }
+
+    private void baseGridToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        _worldControl.World = World.Create("BaseGrid.txt");
+    }
+
+    private void grid2ToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        _worldControl.World = World.Create("Grid2.txt");
+    }
+
+    private void loadGridToolStripMenuItem_Click(object sender, EventArgs e)
+    { } //TODO: I DON'T KNOW HOW THE HELL TO DELETE THIS
+
+    private void grid3ToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        _worldControl.World = World.Create("Grid3.txt");
+    }
 }

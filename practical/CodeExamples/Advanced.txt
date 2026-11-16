@@ -1,5 +1,10 @@
-Repeat 5 times
-    Move 5
-    Turn left
-Move 10
+Move 1
 Turn right
+Move 1
+Turn left
+Move 1
+Turn right
+Repeat 3 times
+    Move 1
+Turn left
+Move 2

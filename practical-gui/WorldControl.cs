@@ -23,7 +23,7 @@ public class WorldControl : UserControl
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public IPlayerViewFactory PlayerViewFactory { get; set; }
 
-    private IPlayerView _playerView;
+    public IPlayerView PlayerView;
     
     public WorldControl(IPlayerViewFactory playerViewFactory, ICellRenderer cellRenderer)
     {
@@ -40,7 +40,7 @@ public class WorldControl : UserControl
         CellRenderer = cellRenderer;
         PlayerViewFactory = playerViewFactory;
         
-        _playerView = PlayerViewFactory
+        PlayerView = PlayerViewFactory
             .Create(World.Player, Invalidate);
     }
     
@@ -79,7 +79,7 @@ public class WorldControl : UserControl
             y += cellSize;
         }
         
-        _playerView.Render(g, new RectangleF(offsetX, offsetY, cellSize, cellSize));
+        PlayerView.Render(g, new RectangleF(offsetX, offsetY, cellSize, cellSize));
     }
 }
 

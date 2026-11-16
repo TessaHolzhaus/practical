@@ -134,12 +134,14 @@ public partial class Form1 : Form
 
     private void baseGridToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        _worldControl.World = World.Create("BaseGrid.txt");
+        _worldControl.World = World.Create();
+        _worldControl.PlayerView = new PlayerPathView(_worldControl.World.Player, _worldControl.Invalidate);
     }
 
     private void grid2ToolStripMenuItem_Click(object sender, EventArgs e)
     {
         _worldControl.World = World.Create("Grid2.txt");
+        _worldControl.PlayerView = new PlayerPathView(_worldControl.World.Player, _worldControl.Invalidate);
     }
 
     private void loadGridToolStripMenuItem_Click(object sender, EventArgs e)
@@ -148,5 +150,6 @@ public partial class Form1 : Form
     private void grid3ToolStripMenuItem_Click(object sender, EventArgs e)
     {
         _worldControl.World = World.Create("Grid3.txt");
+        _worldControl.PlayerView = new PlayerPathView(_worldControl.World.Player, _worldControl.Invalidate);
     }
 }

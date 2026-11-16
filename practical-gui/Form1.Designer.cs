@@ -36,6 +36,7 @@ partial class Form1
         flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
         RunButton = new System.Windows.Forms.Button();
         MetricsButton = new System.Windows.Forms.Button();
+        ExportButton = new System.Windows.Forms.Button();
         ProgramTextBox = new System.Windows.Forms.TextBox();
         OutputTextBox = new System.Windows.Forms.TextBox();
         menuStrip = new System.Windows.Forms.MenuStrip();
@@ -100,9 +101,10 @@ partial class Form1
         flowLayoutPanel2.AutoSize = true;
         flowLayoutPanel2.Controls.Add(RunButton);
         flowLayoutPanel2.Controls.Add(MetricsButton);
+        flowLayoutPanel2.Controls.Add(ExportButton);
         flowLayoutPanel2.Location = new System.Drawing.Point(3, 360);
         flowLayoutPanel2.Name = "flowLayoutPanel2";
-        flowLayoutPanel2.Size = new System.Drawing.Size(248, 52);
+        flowLayoutPanel2.Size = new System.Drawing.Size(372, 52);
         flowLayoutPanel2.TabIndex = 12;
         // 
         // RunButton
@@ -134,6 +136,21 @@ partial class Form1
         MetricsButton.Text = "Metrics";
         MetricsButton.UseVisualStyleBackColor = false;
         MetricsButton.Click += MetricsButton_Click;
+        // 
+        // ExportButton
+        // 
+        ExportButton.AutoSize = true;
+        ExportButton.BackColor = System.Drawing.Color.DarkCyan;
+        ExportButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+        ExportButton.Font = new System.Drawing.Font("Tw Cen MT", 12F, System.Drawing.FontStyle.Bold);
+        ExportButton.ForeColor = System.Drawing.Color.WhiteSmoke;
+        ExportButton.Location = new System.Drawing.Point(251, 3);
+        ExportButton.Name = "ExportButton";
+        ExportButton.Size = new System.Drawing.Size(118, 46);
+        ExportButton.TabIndex = 7;
+        ExportButton.Text = "Export";
+        ExportButton.UseVisualStyleBackColor = false;
+        ExportButton.Click += ExportButton_Click;
         // 
         // ProgramTextBox
         // 
@@ -218,21 +235,21 @@ partial class Form1
         // baseGridToolStripMenuItem
         // 
         baseGridToolStripMenuItem.Name = "baseGridToolStripMenuItem";
-        baseGridToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+        baseGridToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
         baseGridToolStripMenuItem.Text = "Base grid";
         baseGridToolStripMenuItem.Click += baseGridToolStripMenuItem_Click;
         // 
         // grid2ToolStripMenuItem
         // 
         grid2ToolStripMenuItem.Name = "grid2ToolStripMenuItem";
-        grid2ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+        grid2ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
         grid2ToolStripMenuItem.Text = "Grid 2";
         grid2ToolStripMenuItem.Click += grid2ToolStripMenuItem_Click;
         // 
         // grid3ToolStripMenuItem
         // 
         grid3ToolStripMenuItem.Name = "grid3ToolStripMenuItem";
-        grid3ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+        grid3ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
         grid3ToolStripMenuItem.Text = "Grid 3";
         grid3ToolStripMenuItem.Click += grid3ToolStripMenuItem_Click;
         // 
@@ -258,6 +275,8 @@ partial class Form1
         ResumeLayout(false);
         PerformLayout();
     }
+    
+    private System.Windows.Forms.Button ExportButton;
 
     private System.Windows.Forms.ToolStripMenuItem loadGridToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem baseGridToolStripMenuItem;

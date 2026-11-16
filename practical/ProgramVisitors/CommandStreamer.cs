@@ -41,6 +41,7 @@ public class CommandStreamer : ProgramVisitor
     {
         Writer.WriteIndent(Indent, _indentationLevel);
         repeatUntil.WriteHeaderTo(Writer);
+        Writer.WriteLine();
         _indentationLevel++;
         Visit(repeatUntil.Commands);
         _indentationLevel--;

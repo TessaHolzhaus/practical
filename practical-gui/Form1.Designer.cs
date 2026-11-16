@@ -36,7 +36,6 @@ partial class Form1
         flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
         RunButton = new System.Windows.Forms.Button();
         MetricsButton = new System.Windows.Forms.Button();
-        ExportButton = new System.Windows.Forms.Button();
         ProgramTextBox = new System.Windows.Forms.TextBox();
         OutputTextBox = new System.Windows.Forms.TextBox();
         menuStrip = new System.Windows.Forms.MenuStrip();
@@ -78,8 +77,8 @@ partial class Form1
         // splitContainer1.Panel2
         // 
         splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.Window;
-        splitContainer1.Size = new System.Drawing.Size(1206, 545);
-        splitContainer1.SplitterDistance = 402;
+        splitContainer1.Size = new System.Drawing.Size(1212, 562);
+        splitContainer1.SplitterDistance = 404;
         splitContainer1.SplitterWidth = 10;
         splitContainer1.TabIndex = 9;
         splitContainer1.Text = "splitContainer1";
@@ -98,7 +97,7 @@ partial class Form1
         tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 72F));
         tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
         tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 28F));
-        tableLayoutPanel1.Size = new System.Drawing.Size(402, 545);
+        tableLayoutPanel1.Size = new System.Drawing.Size(404, 562);
         tableLayoutPanel1.TabIndex = 9;
         // 
         // flowLayoutPanel2
@@ -106,10 +105,9 @@ partial class Form1
         flowLayoutPanel2.AutoSize = true;
         flowLayoutPanel2.Controls.Add(RunButton);
         flowLayoutPanel2.Controls.Add(MetricsButton);
-        flowLayoutPanel2.Controls.Add(ExportButton);
-        flowLayoutPanel2.Location = new System.Drawing.Point(3, 353);
+        flowLayoutPanel2.Location = new System.Drawing.Point(3, 365);
         flowLayoutPanel2.Name = "flowLayoutPanel2";
-        flowLayoutPanel2.Size = new System.Drawing.Size(372, 52);
+        flowLayoutPanel2.Size = new System.Drawing.Size(248, 52);
         flowLayoutPanel2.TabIndex = 12;
         // 
         // RunButton
@@ -117,7 +115,7 @@ partial class Form1
         RunButton.AutoSize = true;
         RunButton.BackColor = System.Drawing.Color.FromArgb(((int)((byte)51)), ((int)((byte)166)), ((int)((byte)76)));
         RunButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-        RunButton.Font = new System.Drawing.Font("Tw Cen MT", 12F, System.Drawing.FontStyle.Bold);
+        RunButton.Font = new System.Drawing.Font("Tw Cen MT", 8F, System.Drawing.FontStyle.Bold);
         RunButton.ForeColor = System.Drawing.Color.WhiteSmoke;
         RunButton.Location = new System.Drawing.Point(3, 3);
         RunButton.Name = "RunButton";
@@ -132,7 +130,7 @@ partial class Form1
         MetricsButton.AutoSize = true;
         MetricsButton.BackColor = System.Drawing.Color.FromArgb(((int)((byte)0)), ((int)((byte)133)), ((int)((byte)252)));
         MetricsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-        MetricsButton.Font = new System.Drawing.Font("Tw Cen MT", 12F, System.Drawing.FontStyle.Bold);
+        MetricsButton.Font = new System.Drawing.Font("Tw Cen MT", 8F, System.Drawing.FontStyle.Bold);
         MetricsButton.ForeColor = System.Drawing.Color.WhiteSmoke;
         MetricsButton.Location = new System.Drawing.Point(127, 3);
         MetricsButton.Name = "MetricsButton";
@@ -142,39 +140,24 @@ partial class Form1
         MetricsButton.UseVisualStyleBackColor = false;
         MetricsButton.Click += MetricsButton_Click;
         // 
-        // ExportButton
-        // 
-        ExportButton.AutoSize = true;
-        ExportButton.BackColor = System.Drawing.Color.DarkCyan;
-        ExportButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-        ExportButton.Font = new System.Drawing.Font("Tw Cen MT", 12F, System.Drawing.FontStyle.Bold);
-        ExportButton.ForeColor = System.Drawing.Color.WhiteSmoke;
-        ExportButton.Location = new System.Drawing.Point(251, 3);
-        ExportButton.Name = "ExportButton";
-        ExportButton.Size = new System.Drawing.Size(118, 46);
-        ExportButton.TabIndex = 7;
-        ExportButton.Text = "Export";
-        ExportButton.UseVisualStyleBackColor = false;
-        ExportButton.Click += ExportButton_Click;
-        // 
         // ProgramTextBox
         // 
         ProgramTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
         ProgramTextBox.Location = new System.Drawing.Point(3, 3);
         ProgramTextBox.Multiline = true;
         ProgramTextBox.Name = "ProgramTextBox";
-        ProgramTextBox.Size = new System.Drawing.Size(396, 344);
+        ProgramTextBox.Size = new System.Drawing.Size(398, 356);
         ProgramTextBox.TabIndex = 10;
         // 
         // OutputTextBox
         // 
         OutputTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-        OutputTextBox.Font = new System.Drawing.Font("Consolas", 9F);
-        OutputTextBox.Location = new System.Drawing.Point(3, 411);
+        OutputTextBox.Font = new System.Drawing.Font("Consolas", 6F);
+        OutputTextBox.Location = new System.Drawing.Point(3, 423);
         OutputTextBox.Multiline = true;
         OutputTextBox.Name = "OutputTextBox";
         OutputTextBox.ReadOnly = true;
-        OutputTextBox.Size = new System.Drawing.Size(396, 131);
+        OutputTextBox.Size = new System.Drawing.Size(398, 136);
         OutputTextBox.TabIndex = 11;
         // 
         // menuStrip
@@ -183,7 +166,7 @@ partial class Form1
         menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { loadProgramToolStripMenuItem, loadGridToolStripMenuItem, exportToolStripMenuItem });
         menuStrip.Location = new System.Drawing.Point(0, 0);
         menuStrip.Name = "menuStrip";
-        menuStrip.Size = new System.Drawing.Size(1206, 33);
+        menuStrip.Size = new System.Drawing.Size(1212, 33);
         menuStrip.TabIndex = 10;
         menuStrip.Text = "menuStrip1";
         // 
@@ -199,46 +182,48 @@ partial class Form1
         // 
         basicToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
         basicToolStripMenuItem.Name = "basicToolStripMenuItem";
-        basicToolStripMenuItem.Size = new System.Drawing.Size(196, 34);
+        basicToolStripMenuItem.Size = new System.Drawing.Size(204, 34);
         basicToolStripMenuItem.Text = "Basic";
         basicToolStripMenuItem.Click += basicToolStripMenuItem_Click;
         // 
         // advancedToolStripMenuItem
         // 
         advancedToolStripMenuItem.Name = "advancedToolStripMenuItem";
-        advancedToolStripMenuItem.Size = new System.Drawing.Size(196, 34);
+        advancedToolStripMenuItem.Size = new System.Drawing.Size(204, 34);
         advancedToolStripMenuItem.Text = "Advanced";
         advancedToolStripMenuItem.Click += advancedToolStripMenuItem_Click;
         // 
         // expertToolStripMenuItem
         // 
         expertToolStripMenuItem.Name = "expertToolStripMenuItem";
-        expertToolStripMenuItem.Size = new System.Drawing.Size(196, 34);
+        expertToolStripMenuItem.Size = new System.Drawing.Size(204, 34);
         expertToolStripMenuItem.Text = "Expert";
         expertToolStripMenuItem.Click += expertToolStripMenuItem_Click;
+        // 
         // repeatUntilToolStripMenuItem
         // 
         repeatUntilToolStripMenuItem.Name = "repeatUntilToolStripMenuItem";
-        repeatUntilToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+        repeatUntilToolStripMenuItem.Size = new System.Drawing.Size(204, 34);
         repeatUntilToolStripMenuItem.Text = "RepeatUntil";
         repeatUntilToolStripMenuItem.Click += repeatUntilToolStripMenuItem_Click;
+        // 
         // goToToolStripMenuItem
         // 
         goToToolStripMenuItem.Name = "goToToolStripMenuItem";
-        goToToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+        goToToolStripMenuItem.Size = new System.Drawing.Size(204, 34);
         goToToolStripMenuItem.Text = "GoTo";
         goToToolStripMenuItem.Click += goToToolStripMenuItem_Click;
         // 
         // toolStripSeparator1
         // 
         toolStripSeparator1.Name = "toolStripSeparator1";
-        toolStripSeparator1.Size = new System.Drawing.Size(193, 6);
+        toolStripSeparator1.Size = new System.Drawing.Size(201, 6);
         // 
         // fromFileToolStripMenuItem
         // 
         fromFileToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
         fromFileToolStripMenuItem.Name = "fromFileToolStripMenuItem";
-        fromFileToolStripMenuItem.Size = new System.Drawing.Size(196, 34);
+        fromFileToolStripMenuItem.Size = new System.Drawing.Size(204, 34);
         fromFileToolStripMenuItem.Text = "From file...";
         fromFileToolStripMenuItem.Click += fromFileToolStripMenuItem_Click;
         // 
@@ -295,7 +280,7 @@ partial class Form1
         // 
         AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
         AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-        ClientSize = new System.Drawing.Size(1206, 578);
+        ClientSize = new System.Drawing.Size(1212, 595);
         Controls.Add(splitContainer1);
         Controls.Add(menuStrip);
         Margin = new System.Windows.Forms.Padding(2);
@@ -318,8 +303,6 @@ partial class Form1
     private System.Windows.Forms.ToolStripMenuItem jSONToolStripMenuItem;
 
     private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
-
-    private System.Windows.Forms.Button ExportButton;
 
     private System.Windows.Forms.ToolStripMenuItem loadGridToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem baseGridToolStripMenuItem;

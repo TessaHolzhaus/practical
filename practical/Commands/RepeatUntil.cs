@@ -15,6 +15,8 @@ public class WallAhead : ICondition
         Coord nextPosition = w.Player.Position + w.Player.Direction.ToCoordDelta();
         return w.IsWalkable(nextPosition);
     }
+    
+    public override string ToString() => "WallAhead";
 }
 
 public class GridEdge : ICondition
@@ -24,6 +26,9 @@ public class GridEdge : ICondition
         Coord nextPosition = w.Player.Position + w.Player.Direction.ToCoordDelta();
         return w.IsWithinBounds(nextPosition);
     }
+    
+    
+    public override string ToString() => "GridEdge";
 }
 
 public class RepeatUntil : ICommand, ICommandParser<RepeatUntil>

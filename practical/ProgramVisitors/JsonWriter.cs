@@ -42,6 +42,14 @@ public class JsonWriter : ProgramVisitor
     
     private void WriteValue(string value)
     {
+        _writer.Write('"');
+        _writer.Write(value);
+        _writer.Write('"');
+        _deepestItemIndent = Indentation;
+    }
+    
+    private void WriteValue(int value)
+    {
         _writer.Write(value);
         _deepestItemIndent = Indentation;
     }
@@ -88,7 +96,7 @@ public class JsonWriter : ProgramVisitor
     {
         OpenCommand("move");
         WritePropertyName("distance");
-        WriteValue(move.Distance.ToString());
+        WriteValue(move.Distance);
         Close();
     }
 
@@ -104,7 +112,7 @@ public class JsonWriter : ProgramVisitor
     {
         OpenCommand("repeat");
         WritePropertyName("times");
-        WriteValue(repeat.Times.ToString());
+        WriteValue(repeat.Times);
         WritePropertyName("commands");
         Visit(repeat.Commands);
         Close();
@@ -123,6 +131,12 @@ public class JsonWriter : ProgramVisitor
     public override void VisitGoTo(GoTo goTo)
     {
         WritePropertyName("goto");
-        WriteValue(goTo.Coords.ToString());
+        WritePropertyName("coords");
+        OpenObject();
+        WritePropertyName("x");
+        WriteValue(goTo.Coords.X);
+        WritePropertyName("y");
+        WriteValue(goTo.Coords.Y);
+        Close();
     }
 }

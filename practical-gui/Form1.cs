@@ -153,6 +153,11 @@ public partial class Form1 : Form
 
     private void ExportButton_Click(object sender, EventArgs e)
     {
+        throw new System.NotImplementedException();
+    }
+    
+    private void normalToolStripMenuItem_Click(object sender, EventArgs e)
+    {
         using var dialog = new SaveFileDialog
         {
             Title = "Choose a location",
@@ -169,13 +174,37 @@ public partial class Form1 : Form
     {
         using var writer = new StreamWriter(filePath);
         
-        CommandStreamer streamer = new CommandStreamer(writer);
+        var streamer = new CommandStreamer(writer);
         
         var program = GetProgram();
         
-        foreach (var command in program)
+        streamer.Visit(program);
+    }
+
+    private void SafeProgramJson(string filePath)
+    {
+        using var writer = new StreamWriter(filePath);
+        
+        var streamer = new JsonWriter(writer);
+            
+        var program = GetProgram();
+            
+        streamer.Visit(program);
+    }
+
+    private void jSONToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        using var dialog = new SaveFileDialog
         {
-            streamer.Visit(command);
+            Title = "Save as JSON file",
+            Filter = "JSON files (*.json)|*.json|All files (*.*)|*.*",
+            DefaultExt = "json",
+            AddExtension = true
+        };
+
+        if (dialog.ShowDialog() is DialogResult.OK)
+        {
+            SafeProgramJson(dialog.FileName);
         }
     }
 }
